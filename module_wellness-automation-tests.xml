@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_wellness-automation-tests" default="compile.module.wellness-automation-tests">
+  <dirname property="module.wellness-automation-tests.basedir" file="${ant.file.module_wellness-automation-tests}"/>
+  
+  <property name="module.jdk.home.wellness-automation-tests" value=""/>
+  <property name="module.jdk.bin.wellness-automation-tests" value=""/>
+  <property name="module.jdk.classpath.wellness-automation-tests" value=""/>
+  
+  <property name="compiler.args.wellness-automation-tests" value="-encoding UTF-8 -source 11 -target 11 ${compiler.args}"/>
+  
+  <property name="wellness-automation-tests.output.dir" value="${module.wellness-automation-tests.basedir}/build/classes/production/Wellness-automation-tests"/>
+  <property name="wellness-automation-tests.testoutput.dir" value="${module.wellness-automation-tests.basedir}/build/classes/test/Wellness-automation-tests"/>
+  
+  <path id="wellness-automation-tests.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="wellness-automation-tests.module.production.classpath"/>
+  
+  <path id="wellness-automation-tests.runtime.production.module.classpath">
+    <pathelement location="${wellness-automation-tests.output.dir}"/>
+  </path>
+  
+  <path id="wellness-automation-tests.module.classpath">
+    <pathelement location="${wellness-automation-tests.output.dir}"/>
+  </path>
+  
+  <path id="wellness-automation-tests.runtime.module.classpath">
+    <pathelement location="${wellness-automation-tests.testoutput.dir}"/>
+    <pathelement location="${wellness-automation-tests.output.dir}"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.wellness-automation-tests">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.wellness-automation-tests">
+    <patternset refid="excluded.from.module.wellness-automation-tests"/>
+  </patternset>
+  
+  
+  <target name="compile.module.wellness-automation-tests" depends="compile.module.wellness-automation-tests.production,compile.module.wellness-automation-tests.tests" description="Compile module Wellness-automation-tests"/>
+  
+  <target name="compile.module.wellness-automation-tests.production" depends="register.custom.compilers" description="Compile module Wellness-automation-tests; production classes"/>
+  
+  <target name="compile.module.wellness-automation-tests.tests" depends="register.custom.compilers,compile.module.wellness-automation-tests.production" description="compile module Wellness-automation-tests; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.wellness-automation-tests" description="cleanup module">
+    <delete dir="${wellness-automation-tests.output.dir}"/>
+    <delete dir="${wellness-automation-tests.testoutput.dir}"/>
+  </target>
+</project>

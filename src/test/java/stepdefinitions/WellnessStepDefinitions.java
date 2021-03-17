@@ -1,0 +1,384 @@
+package stepdefinitions;
+
+
+import common.CSVReader;
+import cucumber.api.java.en.And;
+import cucumber.api.java.en.Given;
+import cucumber.api.java.en.Then;
+import net.serenitybdd.core.Serenity;
+import net.thucydides.core.annotations.Steps;
+import steps.*;
+import steps.FormPageSteps.*;
+import testdataobjects.RecentRequestSession;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+public class WellnessStepDefinitions {
+
+    @Steps
+    WellnessSteps wellnessSteps;
+
+    @Steps
+    LoginStepDefinitions loginStepDefinitions;
+
+    @Steps
+    IndividualSessionFormsSteps individualSessionFormsSteps;
+
+    @Steps
+    BoostSatisfactionSurveyFormsSteps boostSatisfactionSurveyFormsSteps;
+
+    @Steps
+    CheckInFormSteps checkInFormSteps;
+
+    @Steps
+    GroupFormsSteps groupFormsSteps;
+
+    @Steps
+    TeamMeetingWithTLFormsSteps teamMeetingWithTLFormsSteps;
+
+    @Steps
+    YogiIndividualSessionFormsSteps yogiIndividualSessionFormsSteps;
+
+    int requestIndex;
+    String loginUserRole;
+
+    @Then("User clicks on Requests link")
+    public void userClicksRequestsLink(){
+        wellnessSteps.userClickOnRequestsLink();
+    }
+
+    @Then("User clicks on Group Form link")
+    public void userClicksGroupFormsLink(){
+        wellnessSteps.clickGroupFormLink();
+    }
+
+    @Then("User clicks on Past Forms Link")
+    public void userClicksPastFormLink(){
+        wellnessSteps.userClicksPastFormLink();
+    }
+
+    @Then("Validate newly added record")
+    public void validateNewlyAddedRecord(){
+        requestIndex = wellnessSteps.validateRequestRecord();
+    }
+
+    @And("Assign {string} coach to a request")
+    public void assignCoachToRequest(String userRole){
+        wellnessSteps.clickActionDropDown(requestIndex);
+        wellnessSteps.clickAssignACoachBtn();
+        if(wellnessSteps.validateAssignCoachModalDisplayed()){
+            wellnessSteps.typeCoachNameInModal(userRole);
+            wellnessSteps.selectCoachSuggest(userRole);
+            wellnessSteps.clickAssignCoachBtn();
+            loginStepDefinitions.updateCSVRequest("Assigned",userRole,false);
+        }
+    }
+
+    @And("Reassign {string} coach to a request")
+    public void reassignCoachToRequest(String userRole){
+        wellnessSteps.clickActionDropDown(requestIndex);
+        wellnessSteps.clickAssignACoachBtn();
+        if(wellnessSteps.validateAssignCoachModalDisplayed()){
+            wellnessSteps.typeCoachNameInModal(userRole);
+            wellnessSteps.selectCoachSuggest(userRole);
+            wellnessSteps.clickAssignCoachBtn();
+            loginStepDefinitions.updateCSVRequest("Reassigned",userRole,false);
+        }
+    }
+
+    @And("Validate that status is changed to {string}")
+    public void validateStatusChangeTo(String args){
+        RecentRequestSession recentRequestSession = CSVReader.readCSVDataForSessionRequest();
+        userFilterRequestStatus(args);
+        changeSiteTo(recentRequestSession.getSite());
+        changeCampaignTo(recentRequestSession.getCampaign());
+        changeItemsPerPage();
+        requestIndex = wellnessSteps.validateRequestRecord();
+    }
+
+    @Then("Validate that there's no assigned session")
+    public void validateNoAssignedSession() {
+        wellnessSteps.validateNoAssignedSession();
+    }
+
+    @And("Update request status to {string}")
+    public void updateRequestStatusTo(String args){
+        wellnessSteps.clickActionDropDown(requestIndex);
+        wellnessSteps.clickUpdateStatusButton();
+        wellnessSteps.clickStatusComboOnModal();
+        wellnessSteps.selectStatusOnModal(args);
+        wellnessSteps.clickUpdateStatusModalButton();
+        loginStepDefinitions.updateCSVRequest(args,loginUserRole != null ? loginUserRole : "Master Avatar",false);
+    }
+
+    @And("Create session log on request")
+    public void createSessionLogOnRequest(){
+        RecentRequestSession recentRequestSession = CSVReader.readCSVDataForSessionRequest();
+        userFilterRequestStatus(recentRequestSession.getStatus());
+        changeSiteTo(recentRequestSession.getSite());
+        changeCampaignTo(recentRequestSession.getCampaign());
+        changeItemsPerPage();
+        requestIndex = wellnessSteps.validateRequestRecord();
+        wellnessSteps.clickActionDropDown(requestIndex);
+        wellnessSteps.clickCreateSessionLog();
+    }
+
+    @Then("Change item per page to 100")
+    public void changeItemsPerPage(){
+        wellnessSteps.changeItemsto100PerPage();
+    }
+
+    @And("User select {string} site for request filter")
+    public void changeSiteTo(String args){
+        wellnessSteps.userClicksOnRequestFilterSite();
+        wellnessSteps.selectfilterComboBox(args);
+    }
+
+    @And("User select {string} campaign for request filter")
+    public void changeCampaignTo(String args){
+        wellnessSteps.userClicksOnRequestFilterCampaign();
+        wellnessSteps.selectfilterComboBox(args);
+    }
+
+    @And("User select {string} status for request filter")
+    public void userFilterRequestStatus(String args){
+        wellnessSteps.userClicksOnRequestFilterStatus();
+        wellnessSteps.selectfilterStatusComboBox(args);
+    }
+
+    @And("User insert sample data to Individual Session form")
+    public void userInsertSampleDataToIndividualSessionForm() {
+        individualSessionFormsSteps.waitPageToLoad();
+        individualSessionFormsSteps.clickSessionNumberComboBox();
+        individualSessionFormsSteps.selectItemInSessionNumberComboBox("1st");
+        individualSessionFormsSteps.clickAspectComboBox();
+        individualSessionFormsSteps.selectItemAspectComboBox("Emergent - Safety Concerns");
+        individualSessionFormsSteps.clickEmergentConcernsCheckBox("Concerned about the ability to remain safe");
+        individualSessionFormsSteps.insertTextToActionItems("test");
+        individualSessionFormsSteps.insertTextToActionItemsDueDate("1/28/2021");
+        individualSessionFormsSteps.clickSubmitBtn();
+//        individualSessionFormsSteps.validateFormRequest();
+        CSVReader.saveCSVDataForIndividualSessionForm(true);
+    }
+
+    @And("Select date in Past Form using recent request date")
+    public void selectDateFromDateModal() throws ParseException {
+        wellnessSteps.clickDateIconFromPastForm();
+        wellnessSteps.selectDateFromDateModal(getDateAndChangeFormatFromRecentRequest());
+        changeItemsPerPage();
+    }
+
+    @And("Validate past created session")
+    public void validatePastCreatedSession() {
+        requestIndex = wellnessSteps.validatePastCreatedSession();
+        wellnessSteps.clickActionViewFromResponse(requestIndex);
+        wellnessSteps.verifyIndividualSessionFormModal();
+    }
+
+    @And("User take the survey at wellness")
+    public void userTakeTheSurveyAtWellness() {
+        requestIndex = wellnessSteps.validateWellnessSessions(true);
+        wellnessSteps.clickTakeTheSurvey(requestIndex);
+        boostSatisfactionSurveyFormsSteps.waitPageToLoad();
+        if(boostSatisfactionSurveyFormsSteps.checkIfFormIsDisplayed()){
+            for(int i = 1;i<=7;i++){
+                boostSatisfactionSurveyFormsSteps.clickSatisfactionOnSurveyQuestion("5",i);
+            }
+            boostSatisfactionSurveyFormsSteps.clickSubmitBtn();
+        }
+    }
+
+
+    @And("User clicks on check-in and insert sample data on check-in Form")
+    public void userClicksOnCheckIn() {
+//        wellnessSteps.userClicksOnCheckIn();
+        checkInFormSteps.waitForCheckInFormPageToLoad();
+        checkInFormSteps.insertAnswerToQ1("1");
+        checkInFormSteps.insertAnswerToQ2("1");
+        checkInFormSteps.selectNoToAll();
+        checkInFormSteps.clickAnswerToQ5("Neutral");
+//        checkInFormSteps.clickSubmitBtn();
+    }
+
+    @Then("User clicks checkin")
+    public void userClicksCheckIn(){
+        wellnessSteps.userClicksOnCheckIn();
+    }
+
+    @Then("A {string} validates tabs link in Wellness page")
+    public void validateTabsLinkInWellnessPage(String role) {
+        wellnessSteps.validateTabsLinkInWellnessPage(role);
+    }
+
+    @And("Validate request Registration")
+    public void validateRequestRegistration() {
+        wellnessSteps.clickActionDropDown(requestIndex);
+        wellnessSteps.clickViewRegistrationBtn();
+        wellnessSteps.verifyRegistrationFormModal();
+    }
+
+    @Given("that fetch session assigned for {string}")
+    public void thatFetchSessionAssignedFor(String arg0) {
+        RecentRequestSession recentRequestSession = CSVReader.readCSVDataForSessionRequest();
+        loginStepDefinitions.updateCSVRequest(recentRequestSession.getStatus(),arg0,false);
+        loginUserRole = arg0;
+    }
+
+    @And("Input data on Group Form")
+    public void inputDataOnGroupForm() {
+        groupFormsSteps.waitPageToLoad();
+        groupFormsSteps.userClicksOnSiteBtn();
+        groupFormsSteps.userSelectSite("Adventures Intelligence");
+        groupFormsSteps.userClicksOnCampaignTextBox();
+        groupFormsSteps.userSelectCampaign("Sephora-Customer Support-Blended-TUT");
+        groupFormsSteps.userInputNumberOfAttendees("1");
+        groupFormsSteps.userClicksGroupCategoryOperationsLeadership();
+        groupFormsSteps.userClicksTopicOfGroupSelfRegulation();
+        groupFormsSteps.userClicksOnFirstRadionBtnInSuccessOrChallengingQuestion();
+        groupFormsSteps.userClicksOnSubmitBtn();
+
+        teamMeetingWithTLFormsSteps.userRefreshThePage();
+        groupFormsSteps.verifyReponseIsSubmitted();
+        teamMeetingWithTLFormsSteps.userRefreshThePage();
+    }
+
+    @Then("test go to individual form")
+    public void testGoToIndividualForm() {
+        wellnessSteps.testGoToIndividualForm();
+    }
+
+    @And("Validate Group Form Session")
+    public void validateGroupFormSession() {
+        requestIndex = groupFormsSteps.validateGroupFormSession();
+        wellnessSteps.clickActionViewFromResponse(requestIndex);
+        groupFormsSteps.verifyGroupSessionFormModal();
+    }
+
+    @Then("User clicks on Team Meeting with TL Form")
+    public void userClicksOnTeamMeetingWithTLForm() {
+        wellnessSteps.userClicksOnTeamMeetingWithTLForm();
+    }
+
+    @And("Input data on Team Meeting with TL Form")
+    public void inputDataOnTeamMeetingWithTLForm() {
+        teamMeetingWithTLFormsSteps.waitPageToLoad();
+        teamMeetingWithTLFormsSteps.userClicksOnSiteBtn();
+        teamMeetingWithTLFormsSteps.userSelectSite("Adventures Intelligence");
+        teamMeetingWithTLFormsSteps.userClicksOnCampaignTextBox();
+        teamMeetingWithTLFormsSteps.userSelectCampaign("Sephora-Customer Support-Blended-TUT");
+        teamMeetingWithTLFormsSteps.userInputNumberOfAttendees("1");
+        teamMeetingWithTLFormsSteps.userInputNameOfTL("test");
+        teamMeetingWithTLFormsSteps.userInputDescriptionOfIdentifiedConcernsOrOpportunitiesForGrowth("test");
+        teamMeetingWithTLFormsSteps.userClicksOnSubmitBtn();
+
+        teamMeetingWithTLFormsSteps.userRefreshThePage();
+
+        teamMeetingWithTLFormsSteps.verifyReponseIsSubmitted();
+        teamMeetingWithTLFormsSteps.userRefreshThePage();
+    }
+
+    @And("Validate Team Meeting with TL Form Session")
+    public void validateTeamMeetingWithTLFormSession() {
+        requestIndex = teamMeetingWithTLFormsSteps.validateTeamMeetingWithTLFormFormSession();
+        wellnessSteps.clickActionViewFromResponse(requestIndex);
+        teamMeetingWithTLFormsSteps.verifyTeamMeetingWithTLFormSessionFormModal();
+    }
+
+    @Then("User clicks on Individual Session Form")
+    public void userClicksOnIndividualSessionForm() {
+        wellnessSteps.userClicksOnIndividualSessionForm();
+    }
+
+    @And("Input data on Individual Session Form")
+    public void inputDataOnIndividualSessionForm() {
+        yogiIndividualSessionFormsSteps.waitPageToLoad();
+        yogiIndividualSessionFormsSteps.userClicksOnSiteBtn();
+        yogiIndividualSessionFormsSteps.userSelectSite("Adventures Intelligence");
+        yogiIndividualSessionFormsSteps.userClicksOnCampaignTextBox();
+        yogiIndividualSessionFormsSteps.userSelectCampaign("Sephora-Customer Support-Blended-TUT");
+        yogiIndividualSessionFormsSteps.userClicksOnSessionNumberComboBox();
+        yogiIndividualSessionFormsSteps.userSelect1stOnSessionNumberComboBox();
+        yogiIndividualSessionFormsSteps.userClicksOnAspectComboBox();
+        yogiIndividualSessionFormsSteps.userSelectPersonalOnAspectComboBox();
+        yogiIndividualSessionFormsSteps.userClicksRelationshipProblem();
+        yogiIndividualSessionFormsSteps.userClicksOnSubmitBtn();
+
+        teamMeetingWithTLFormsSteps.userRefreshThePage();
+        yogiIndividualSessionFormsSteps.verifyReponseIsSubmitted();
+        teamMeetingWithTLFormsSteps.userRefreshThePage();
+    }
+
+    @And("Validate Individual Session Form Session")
+    public void validateIndividualSessionFormSession() {
+        requestIndex = yogiIndividualSessionFormsSteps.validateIndividualSessionFormSession();
+        wellnessSteps.clickActionViewFromResponse(requestIndex);
+        yogiIndividualSessionFormsSteps.verifyIndividualSessionFormSessionFormModal();
+    }
+
+    @And("Select date in Past Form using session request date")
+    public void selectDateInPastFormUsingSessionRequestDate() throws ParseException {
+        wellnessSteps.clickDateIconFromPastForm();
+        wellnessSteps.selectDateFromDateModal(getDateAndChangeFormatFromSessionRequest());
+        changeItemsPerPage();
+    }
+
+    public String getDateAndChangeFormatFromRecentRequest() throws ParseException {
+        RecentRequestSession recentRequestSession = CSVReader.readCSVDataForSessionRequest();
+        String OLD_FORMAT = recentRequestSession.getRegistrationDate();
+        String NEW_FORMAT = "";
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yy");
+        Date d = sdf.parse(OLD_FORMAT);
+        sdf.applyPattern("MMMMM d, YYYY");
+        NEW_FORMAT = sdf.format(d);
+        return NEW_FORMAT;
+    }
+
+    public String getDateAndChangeFormatFromSessionRequest() throws ParseException {
+        String OLD_FORMAT = Serenity.sessionVariableCalled("GroupFormDateCreated");
+        String NEW_FORMAT = "";
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yy");
+        Date d = sdf.parse(OLD_FORMAT);
+        sdf.applyPattern("MMMMM d, YYYY");
+        NEW_FORMAT = sdf.format(d);
+        return NEW_FORMAT;
+    }
+
+    @And("Select date in wellness page")
+    public void selectDateInWellnessPage() throws ParseException {
+        wellnessSteps.clickDateIconFromWellnessPage();
+        wellnessSteps.selectDateFromDateModalInWellnessPage(getDateAndChangeFormatFromRecentRequest());
+    }
+
+    @Then("User clicks on Reporting Link")
+    public void userClicksOnReportingLink() {
+        wellnessSteps.userClicksOnReportingLink();
+    }
+
+    @Then("User clicks {string} Report Link")
+    public void userClicksCoachReportLink(String reportName) {
+        wellnessSteps.userClicksCoachReportLink(reportName);
+    }
+
+    @Then("Validate Coach report for {string} is valid")
+    public void validateCoachReportIsValid(String coachName) {
+        wellnessSteps.validateCoachReportIsValid(coachName,"monthly");
+        wellnessSteps.validateCoachReportIsValid(coachName,"weekly");
+    }
+
+    @And("Validate status report")
+    public void validateStatusReportForCoach() {
+        teamMeetingWithTLFormsSteps.userRefreshThePage();
+        RecentRequestSession recentRequestSession = CSVReader.readCSVDataForSessionRequest();
+        wellnessSteps.clickCoachNameFilter();
+        wellnessSteps.changeCoachNameFilterTo(recentRequestSession.getCoach().replaceFirst(" ",", "));
+        changeItemsPerPage();
+        wellnessSteps.validateStatusReport();
+    }
+
+//    @Given("test update CSV")
+//    public void test(){
+//        wellnessSteps.updateCSVRequest("Assigned","Master Avatar");
+//    }
+}
