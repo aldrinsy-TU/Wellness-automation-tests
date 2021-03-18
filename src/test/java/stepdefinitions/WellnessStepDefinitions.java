@@ -395,6 +395,7 @@ public class WellnessStepDefinitions {
 
     @Given("Clear wellness database")
     public void clearWellnessDatabase() {
+        dbHelper = new DBHelper();
         dbHelper.truncateWellnessTBL();
     }
 

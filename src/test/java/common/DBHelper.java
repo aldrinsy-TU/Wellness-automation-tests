@@ -73,6 +73,21 @@ public class DBHelper {
         }
     }
 
+    public static void fireACommitQuery(String query, Connection cnt) throws Exception {
+        stmt = null;
+        try {
+            stmt = cnt.createStatement();
+            stmt.executeQuery(query);
+            cnt.commit();
+            cnt.close();
+        } catch (Exception e) {
+            cnt.commit();
+            cnt.close();
+            throw new Exception("DataBase error while executing the query"
+                    + e.getMessage());
+        }
+    }
+
     public static Connection getSQLDataBaseConnection(String db_connect_string, String db_userid, String db_password) throws SQLException {
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
@@ -328,7 +343,6 @@ public class DBHelper {
     }
 
     public void truncateWellnessTBL() {
-        Connection con = null;
         String truncate_query = "TRUNCATE TABLE [dbo].[CheckInLog]\n" +
                 "TRUNCATE TABLE [dbo].[CheckInResponses]\n" +
                 "TRUNCATE TABLE [dbo].[CoachingLog]\n" +
@@ -368,17 +382,11 @@ public class DBHelper {
                 "DBCC CHECKIDENT ('dbo.SurveyLog', RESEED, 10000);\n" +
                 "GO";
         try {
-            fireACommitQuery(truncate_query);
-            fireACommitQuery(reseed_query);
+            Connection cnt = getSQLDataBaseConnection("jdbc:sqlserver:sgawsws00sql01.choq3dpfrets.ap-southeast-1.rds.amazonaws.com;","ASy.user","ZGhBG0UqOavSffi9W7qw");
+            fireACommitQuery(truncate_query,cnt);
+            fireACommitQuery(reseed_query,cnt);
         }catch (Exception e) {
             e.printStackTrace();
-        }finally {
-            try {
-                con.close();
-            } catch (SQLException e) {
-                System.out.println(e.getMessage());
-            }
-
         }
     }
 }
