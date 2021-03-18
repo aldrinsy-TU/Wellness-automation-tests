@@ -41,7 +41,7 @@ Feature: Verify if user is able to submit a session Request
     Then User clicks checkin
     And User clicks on check-in and insert sample data on check-in Form
 
-# Dev notes
+# Notes
 #    Given Test CSVWriter
 #    Given test update CSV "Assigned" role "Master Avatar"
 #    mvn clean verify -Denvironment=default -Dcucumber.options="--tags @function=01_QA_Wellness"

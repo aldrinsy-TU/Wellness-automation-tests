@@ -377,6 +377,19 @@ public class WellnessStepDefinitions {
         wellnessSteps.validateStatusReport();
     }
 
+    @Then("User refresh the page")
+    public void userRefreshThePage() {
+        teamMeetingWithTLFormsSteps.userRefreshThePage();
+    }
+
+    @And("Validate survey button is removed")
+    public void validateSurveyButtonIsRemoved() throws ParseException {
+        wellnessSteps.switchToBoostPage();
+        userRefreshThePage();
+        selectDateInWellnessPage();
+        wellnessSteps.validateWellnessSessions(false);
+    }
+
 //    @Given("test update CSV")
 //    public void test(){
 //        wellnessSteps.updateCSVRequest("Assigned","Master Avatar");

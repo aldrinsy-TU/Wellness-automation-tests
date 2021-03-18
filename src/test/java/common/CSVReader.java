@@ -87,7 +87,7 @@ public class CSVReader {
         Date date = new Date();
         String[] newlist = new String[6];
         SimpleDateFormat dtFormat = new SimpleDateFormat("dd-MM-yy");
-        dtFormat.setTimeZone(TimeZone.getTimeZone("GMT+5:30"));
+        dtFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
         if(updateDate){
             DateStr = dtFormat.format(date);
         }
