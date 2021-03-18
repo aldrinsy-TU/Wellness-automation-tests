@@ -15,7 +15,7 @@ public class DBHelper {
 
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             String connectionUrl =
-                    "jdbc:sqlserver:sgawsws00sql01.choq3dpfrets.ap-southeast-1.rds.amazonaws.com;"
+                    "jdbc:sqlserver://sgawsws00sql01.choq3dpfrets.ap-southeast-1.rds.amazonaws.com;"
                             + "database=Wellness;"
                             + "user=ASy.user;"
                             + "password=ZGhBG0UqOavSffi9W7qw;"
@@ -86,19 +86,6 @@ public class DBHelper {
             throw new Exception("DataBase error while executing the query"
                     + e.getMessage());
         }
-    }
-
-    public static Connection getSQLDataBaseConnection(String db_connect_string, String db_userid, String db_password) throws SQLException {
-        try {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            connection = DriverManager.getConnection(db_connect_string,
-                    db_userid, db_password);
-            System.out.println("Connected to SQL Database");
-        } catch (Exception e) {
-            e.printStackTrace();
-            connection.close();
-        }
-        return connection;
     }
 
     public List<String> getAllLogEntriesGivenUsernameAndDates(String username, String startdate, String enddate){
@@ -382,9 +369,8 @@ public class DBHelper {
                 "DBCC CHECKIDENT ('dbo.SurveyLog', RESEED, 10000);\n" +
                 "GO";
         try {
-            Connection cnt = getSQLDataBaseConnection("jdbc:sqlserver:sgawsws00sql01.choq3dpfrets.ap-southeast-1.rds.amazonaws.com;","ASy.user","ZGhBG0UqOavSffi9W7qw");
-            fireACommitQuery(truncate_query,cnt);
-            fireACommitQuery(reseed_query,cnt);
+            fireACommitQuery(truncate_query);
+            fireACommitQuery(reseed_query);
         }catch (Exception e) {
             e.printStackTrace();
         }
