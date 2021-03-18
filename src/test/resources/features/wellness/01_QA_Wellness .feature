@@ -3,6 +3,7 @@ Feature: Verify if user is able to submit a session Request
 
   @01_QA_Welness_01
   Scenario: To Verify if user is able to submit a session Request
+    Given Clear wellness database
     Given User access the Boost Home page
     When A wellness employee user logs in
     And User create Session Request
@@ -40,8 +41,3 @@ Feature: Verify if user is able to submit a session Request
     Then User clicks on Wellness
     Then User clicks checkin
     And User clicks on check-in and insert sample data on check-in Form
-
-# Notes
-#    Given Test CSVWriter
-#    Given test update CSV "Assigned" role "Master Avatar"
-#    mvn clean verify -Denvironment=default -Dcucumber.options="--tags @function=01_QA_Wellness"

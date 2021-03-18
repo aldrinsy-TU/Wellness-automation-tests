@@ -2,6 +2,7 @@ package stepdefinitions;
 
 
 import common.CSVReader;
+import common.DBHelper;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -43,6 +44,8 @@ public class WellnessStepDefinitions {
 
     int requestIndex;
     String loginUserRole;
+
+    DBHelper dbHelper;
 
     @Then("User clicks on Requests link")
     public void userClicksRequestsLink(){
@@ -388,6 +391,11 @@ public class WellnessStepDefinitions {
         userRefreshThePage();
         selectDateInWellnessPage();
         wellnessSteps.validateWellnessSessions(false);
+    }
+
+    @Given("Clear wellness database")
+    public void clearWellnessDatabase() {
+        dbHelper.truncateWellnessTBL();
     }
 
 //    @Given("test update CSV")

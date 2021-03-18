@@ -15,10 +15,10 @@ public class DBHelper {
 
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             String connectionUrl =
-                    "jdbc:sqlserver://10.36.192.60;"
-                            + "database=QA_automation_taskus_aux_tool;"
-                            + "user=TWE_user;"
-                            + "password=P@ssword1234;"
+                    "jdbc:sqlserver:sgawsws00sql01.choq3dpfrets.ap-southeast-1.rds.amazonaws.com;"
+                            + "database=Wellness;"
+                            + "user=ASy.user;"
+                            + "password=ZGhBG0UqOavSffi9W7qw;"
                             + "encrypt=false;"
                             + "trustServerCertificate=false;"
                             + "loginTimeout=30;";
@@ -325,5 +325,60 @@ public class DBHelper {
     public static void main(String[] args) throws Exception {
         DBHelper helper = new DBHelper();
         helper.getOTPGivenEID("8888001");
+    }
+
+    public void truncateWellnessTBL() {
+        Connection con = null;
+        String truncate_query = "TRUNCATE TABLE [dbo].[CheckInLog]\n" +
+                "TRUNCATE TABLE [dbo].[CheckInResponses]\n" +
+                "TRUNCATE TABLE [dbo].[CoachingLog]\n" +
+                "TRUNCATE TABLE [dbo].[CoachingLogHistory]\n" +
+                "TRUNCATE TABLE [dbo].[CoachingRegistration]\n" +
+                "TRUNCATE TABLE [dbo].[CoachingRegistrationHistory]\n" +
+                "TRUNCATE TABLE [dbo].[CoachingResponses]\n" +
+                "TRUNCATE TABLE [dbo].[CoachingResponsesHistory]\n" +
+                "TRUNCATE TABLE [dbo].[CoachingSurvey]\n" +
+                "TRUNCATE TABLE [dbo].[GroupLog]\n" +
+                "TRUNCATE TABLE [dbo].[GroupResponses]\n" +
+                "TRUNCATE TABLE [dbo].[MeetingLog]\n" +
+                "TRUNCATE TABLE [dbo].[MeetingResponses]\n" +
+                "TRUNCATE TABLE [dbo].[RegistrationLog]\n" +
+                "TRUNCATE TABLE [dbo].[RegistrationLogHistory]\n" +
+                "TRUNCATE TABLE [dbo].[RegistrationResponses]\n" +
+                "TRUNCATE TABLE [dbo].[SurveyLog]\n" +
+                "TRUNCATE TABLE [dbo].[SurveyResponses]\n" +
+                "TRUNCATE TABLE [dbo].[ExceptionLogs]\n" +
+                "TRUNCATE TABLE [dbo].[TokenManager]";
+
+        String reseed_query = "DBCC CHECKIDENT ('dbo.CheckInLog', RESEED, 10000);\n" +
+                "GO\n" +
+                "\n" +
+                "DBCC CHECKIDENT ('dbo.CoachingLog', RESEED, 10000);\n" +
+                "GO\n" +
+                "\n" +
+                "DBCC CHECKIDENT ('dbo.GroupLog', RESEED, 10000);\n" +
+                "GO\n" +
+                "\n" +
+                "DBCC CHECKIDENT ('dbo.MeetingLog', RESEED, 10000);\n" +
+                "GO\n" +
+                "\n" +
+                "DBCC CHECKIDENT ('dbo.RegistrationLog', RESEED, 10000);\n" +
+                "GO\n" +
+                "\n" +
+                "DBCC CHECKIDENT ('dbo.SurveyLog', RESEED, 10000);\n" +
+                "GO";
+        try {
+            fireACommitQuery(truncate_query);
+            fireACommitQuery(reseed_query);
+        }catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            try {
+                con.close();
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+
+        }
     }
 }
