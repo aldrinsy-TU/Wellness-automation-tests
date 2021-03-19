@@ -196,13 +196,13 @@ public class WellnessStepDefinitions {
 
     @And("User clicks on check-in and insert sample data on check-in Form")
     public void userClicksOnCheckIn() {
-//        wellnessSteps.userClicksOnCheckIn();
+        wellnessSteps.userClicksOnCheckIn();
         checkInFormSteps.waitForCheckInFormPageToLoad();
         checkInFormSteps.insertAnswerToQ1("1");
         checkInFormSteps.insertAnswerToQ2("1");
         checkInFormSteps.selectNoToAll();
         checkInFormSteps.clickAnswerToQ5("Neutral");
-//        checkInFormSteps.clickSubmitBtn();
+        checkInFormSteps.clickSubmitBtn();
     }
 
     @Then("User clicks checkin")
@@ -397,6 +397,19 @@ public class WellnessStepDefinitions {
     public void clearWellnessDatabase() {
         dbHelper = new DBHelper();
         dbHelper.truncateWellnessTBL();
+    }
+
+    @And("Validate check-in button is disabled")
+    public void validateCheckInButtonIsDisabled() {
+        checkInFormSteps.switchToThisPage();
+        teamMeetingWithTLFormsSteps.userRefreshThePage();
+        checkInFormSteps.validateCheckinBtnIsDisabled();
+    }
+
+    @Then("Validate Site report for {string} is valid")
+    public void validateSiteReportForIsValid(String Site) {
+        wellnessSteps.validateSiteReportIsValid(Site,"monthly");
+        wellnessSteps.validateSiteReportIsValid(Site,"weekly");
     }
 
 //    @Given("test update CSV")

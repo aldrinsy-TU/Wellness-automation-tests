@@ -382,12 +382,38 @@ public class WellnessSteps extends CommonFunctions {
         if(listoftickets.size() >= 1){
             for(int i = 1;i < listoftickets.size();i++){
                 rowElement = listoftickets.get(i);
-                String coachName = rowElement.findElement(By.xpath("//td[3]")).getText();
-                String coacheeCount = rowElement.findElement(By.xpath("//td[4]")).getText();
-                String surveyCount = rowElement.findElement(By.xpath("//td[5]")).getText();
+                String coachName = rowElement.findElement(By.xpath("//app-coach-"+reportType+"//tr[@role='row']["+i+"]//td[3]")).getText();
+                String coacheeCount = rowElement.findElement(By.xpath("//app-coach-"+reportType+"//tr[@role='row']["+i+"]//td[4]")).getText();
+                String surveyCount = rowElement.findElement(By.xpath("//app-coach-"+reportType+"//tr[@role='row']["+i+"]//td[5]")).getText();
                 if(Coach.equalsIgnoreCase(coachName)
-                        && !"0".equalsIgnoreCase(coacheeCount)
-                        && "0".equalsIgnoreCase(surveyCount))
+                        && "2".equalsIgnoreCase(coacheeCount)
+                        && "1".equalsIgnoreCase(surveyCount))
+                {
+                    Assert.assertTrue("Record found ", true);
+                    return;
+                }
+            }
+            Assert.assertTrue("No Record found",false);
+        }
+        else
+            Assert.assertTrue("No Record found",false);
+
+    }
+
+    public void validateSiteReportIsValid(String site,String reportType) {
+        List<WebElement> listoftickets =  wellnessPage.getDriver().findElements(By.xpath("//app-site-"+reportType+"//tr[@role='row']"));
+        WebElement rowElement;
+        if(listoftickets.size() >= 1){
+            for(int i = 1;i < listoftickets.size();i++){
+                rowElement = listoftickets.get(i);
+                String siteName = rowElement.findElement(By.xpath("//app-site-"+reportType+"//tr[@role='row']["+i+"]//td[1]")).getText();
+                String coachCount = rowElement.findElement(By.xpath("//app-site-"+reportType+"//tr[@role='row']["+i+"]//td[2]")).getText();
+                String coacheeCount = rowElement.findElement(By.xpath("//app-site-"+reportType+"//tr[@role='row']["+i+"]//td[3]")).getText();
+                String surveyCount = rowElement.findElement(By.xpath("//app-site-"+reportType+"//tr[@role='row']["+i+"]//td[4]")).getText();
+                if(site.equalsIgnoreCase(siteName)
+                        && "3".equalsIgnoreCase(coacheeCount)
+                        && "1".equalsIgnoreCase(surveyCount)
+                        && "3".equalsIgnoreCase(coachCount))
                 {
                     Assert.assertTrue("Record found ", true);
                     return;
@@ -412,6 +438,7 @@ public class WellnessSteps extends CommonFunctions {
         List<WebElement> listoftickets =  wellnessPage.getTicketRow();
         WebElement rowElement;
         RecentRequestSession recentRequestSession = CSVReader.readCSVDataForSessionRequest();
+        Assert.assertTrue("Total of 3 request",(listoftickets.size() - 1) == 3);
         if(listoftickets.size() > 1){
             rowElement = listoftickets.get(1);
             for(int i = 1;i < listoftickets.size();i++){

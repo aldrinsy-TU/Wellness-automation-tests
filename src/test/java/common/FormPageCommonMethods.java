@@ -54,4 +54,10 @@ public class FormPageCommonMethods extends CommonFunctions {
         WebElement element = find(By.xpath("//mat-card-title[contains(text(),'Response submitted')]"));
         return element.isDisplayed();
     }
+
+    public void switchToThisPage(){
+        Set<String> handles = getDriver().getWindowHandles();
+        List<String> list = new ArrayList<String>(handles);
+        getDriver().switchTo().window(list.get(list.size() - 2));
+    }
 }

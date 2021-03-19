@@ -44,4 +44,9 @@ public class CheckInFormPage extends FormPageCommonMethods {
         moveClickBtn(element);
         waitForAngularRequestsToFinish();
     }
+
+    public boolean validateCheckinBtnIsDisabled() {
+        WebElementFacade element = find(By.xpath("//button[contains(text(),'Check-In')]"));
+        return element.isDisabled();
+    }
 }

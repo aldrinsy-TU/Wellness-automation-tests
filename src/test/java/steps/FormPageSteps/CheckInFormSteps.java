@@ -2,6 +2,7 @@ package steps.FormPageSteps;
 
 
 import common.CommonFunctions;
+import org.junit.Assert;
 import pageobjects.FormPages.CheckInFormPage;
 
 public class CheckInFormSteps extends CommonFunctions {
@@ -30,5 +31,13 @@ public class CheckInFormSteps extends CommonFunctions {
 
     public void waitForCheckInFormPageToLoad() {
         checkInFormPage.switchPageThenWaitToLoad();
+    }
+
+    public void validateCheckinBtnIsDisabled() {
+        Assert.assertTrue("Validate if check-in button is disabled",checkInFormPage.validateCheckinBtnIsDisabled());
+    }
+
+    public void switchToThisPage(){
+        checkInFormPage.switchToThisPage();
     }
 }

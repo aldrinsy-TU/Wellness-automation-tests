@@ -189,13 +189,15 @@ public class WellnessPage extends CommonFunctions {
 
     public void clickTakeTheSurvey(int requestIndex) {
         WebElement element = getDriver().findElement(By.xpath("//tr[@style='cursor: pointer;']["+requestIndex+"]//td[6]//div[1]//button[1]"));
-        moveClickBtn(element);
+        JavascriptExecutor exec = (JavascriptExecutor) this.getDriver();
+        exec.executeScript("arguments[0].click();", element);
     }
 
     public void clickOnCheckIn() {
+        waitForAngularRequestsToFinish();
         WebElementFacade element = find(By.xpath("//button[contains(text(),'Check-In')]"));
-        if(!element.isClickable()){
-            withTimeoutOf(2, TimeUnit.MINUTES).waitFor(ExpectedConditions.elementToBeClickable(element));
+        if(!element.isEnabled()){
+            withTimeoutOf(4, TimeUnit.MINUTES).waitFor(element);
         }
         JavascriptExecutor exec = (JavascriptExecutor) this.getDriver();
         exec.executeScript("arguments[0].click();", element);
