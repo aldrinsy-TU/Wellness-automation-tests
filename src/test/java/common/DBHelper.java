@@ -68,8 +68,10 @@ public class DBHelper {
         } catch (Exception e) {
             connection.commit();
             connection.close();
-            throw new Exception("DataBase error while executing the query"
-                    + e.getMessage());
+            if(!e.getMessage().contains("The statement did not return a result set.")){
+                throw new Exception("DataBase error while executing the query"
+                        + e.getMessage());
+            }
         }
     }
 
@@ -352,22 +354,11 @@ public class DBHelper {
                 "TRUNCATE TABLE [dbo].[TokenManager]";
 
         String reseed_query = "DBCC CHECKIDENT ('dbo.CheckInLog', RESEED, 10000);\n" +
-                "GO\n" +
-                "\n" +
                 "DBCC CHECKIDENT ('dbo.CoachingLog', RESEED, 10000);\n" +
-                "GO\n" +
-                "\n" +
                 "DBCC CHECKIDENT ('dbo.GroupLog', RESEED, 10000);\n" +
-                "GO\n" +
-                "\n" +
                 "DBCC CHECKIDENT ('dbo.MeetingLog', RESEED, 10000);\n" +
-                "GO\n" +
-                "\n" +
                 "DBCC CHECKIDENT ('dbo.RegistrationLog', RESEED, 10000);\n" +
-                "GO\n" +
-                "\n" +
-                "DBCC CHECKIDENT ('dbo.SurveyLog', RESEED, 10000);\n" +
-                "GO";
+                "DBCC CHECKIDENT ('dbo.SurveyLog', RESEED, 10000);";
         try {
             fireACommitQuery(truncate_query);
             fireACommitQuery(reseed_query);
