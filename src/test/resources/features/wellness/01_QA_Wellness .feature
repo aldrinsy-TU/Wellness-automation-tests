@@ -3,7 +3,7 @@ Feature: Verify if user is able to submit a session Request
 
   @01_QA_Welness_01
   Scenario: To Verify if user is able to submit a session Request
-#    Given Clear wellness database
+    Given Clear wellness database
     Given User access the Boost Home page
     When A wellness employee user logs in
     And User create Session Request
