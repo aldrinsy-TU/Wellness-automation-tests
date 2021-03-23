@@ -172,7 +172,7 @@ public class WellnessPage extends CommonFunctions {
     public void userClicksPastFormLink() {
         WebElement element = getDriver().findElement(By.xpath("//a[@href='/past-forms']"));
         moveClickBtn(element);
-        waitForAngularRequestsToFinish();
+//        waitForAngularRequestsToFinish();
     }
 
     public void clickDateIconFromPastForm() {
