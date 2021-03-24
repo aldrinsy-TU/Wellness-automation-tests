@@ -54,7 +54,7 @@ public class WellnessPage extends CommonFunctions {
         }
         JavascriptExecutor exec = (JavascriptExecutor) this.getDriver();
         exec.executeScript("arguments[0].click();", requestsLink);
-        waitForAngularRequestsToFinish();
+//        waitForAngularRequestsToFinish();
     }
 
     public void clickGroupFormLink(){
@@ -62,7 +62,7 @@ public class WellnessPage extends CommonFunctions {
             withTimeoutOf(2, TimeUnit.MINUTES).waitFor(ExpectedConditions.elementToBeClickable(groupFormLink));
         }
         groupFormLink.click();
-        waitForAngularRequestsToFinish();
+//        waitForAngularRequestsToFinish();
     }
 
     public void clickOnRequestFilterStatus(){
@@ -218,13 +218,13 @@ public class WellnessPage extends CommonFunctions {
     public void userClicksOnTeamMeetingWithTLForm() {
         WebElement element = find(By.xpath("//span[contains(text(),'Go to Team Meeting with TL Form')]"));
         moveClickBtn(element);
-        waitForAngularRequestsToFinish();
+//        waitForAngularRequestsToFinish();
     }
 
     public void userClicksOnIndividualSessionForm() {
         WebElement element = find(By.xpath("//span[contains(text(),'Go to Individual Session Form')]"));
         moveClickBtn(element);
-        waitForAngularRequestsToFinish();
+//        waitForAngularRequestsToFinish();
     }
 
     public void clickDateIconFromWellnessPage() {
