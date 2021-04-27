@@ -7,6 +7,11 @@ Feature: Verify if user is able to submit a session Request
     Given User access the Boost Home page
     When A wellness employee user logs in
     And User create Session Request
+    Then User access the Wellness Home page
+    When A wellness "Master Avatar" user logs in
+    Then User clicks on Requests link
+    And User select "New" status for request filter
+    Then Validate newly added record
 
   @01_QA_Welness_02
   Scenario: Verify if user is able to check if there's a Survey form when session is created
