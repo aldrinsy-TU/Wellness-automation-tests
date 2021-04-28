@@ -129,7 +129,8 @@ public class WellnessPage extends CommonFunctions {
 
     public void clickActionDropDown(int requestIndex){
         WebElement element = getDriver().findElement(By.xpath("//tr[@role='row']["+requestIndex+"]//td[9]//span[1]"));
-        moveClickBtn(element);
+        JavascriptExecutor exec = (JavascriptExecutor) this.getDriver();
+        exec.executeScript("arguments[0].click();", element);
     }
 
     public void clickActionViewResponse(int requestIndex){

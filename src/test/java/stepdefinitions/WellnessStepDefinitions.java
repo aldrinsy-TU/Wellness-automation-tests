@@ -169,7 +169,7 @@ public class WellnessStepDefinitions {
         individualSessionFormsSteps.selectItemAspectComboBox("Emergent - Safety Concerns");
         individualSessionFormsSteps.clickEmergentConcernsCheckBox("Concerned about the ability to remain safe");
         individualSessionFormsSteps.insertTextToActionItems("test");
-        individualSessionFormsSteps.insertTextToActionItemsDueDate(DateStr);
+//        individualSessionFormsSteps.insertTextToActionItemsDueDate(DateStr);
         individualSessionFormsSteps.selectActionItemsDueDate();
         individualSessionFormsSteps.clickSubmitBtn();
     }

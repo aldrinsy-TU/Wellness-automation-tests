@@ -96,7 +96,9 @@ public class WellnessIndividualSessionFormPage extends FormPageCommonMethods {
         String DateStr;
         SimpleDateFormat dtFormat = new SimpleDateFormat("MMMMM d, yyyy");
         DateStr = dtFormat.format(new Date());
-        moveClickBtn(find(By.xpath("//td[@aria-label='"+DateStr+"']")));
+        WebElement elements = getDriver().findElement(By.xpath("//td[@aria-label='"+DateStr+"']"));
+        withTimeoutOf(2, TimeUnit.MINUTES).waitFor(ExpectedConditions.elementToBeClickable(elements));
+        moveClickBtn(elements);
     }
 
     public void clickActionItemsDueDateDTPicker() {
