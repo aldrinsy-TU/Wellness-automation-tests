@@ -70,12 +70,12 @@ public class WellnessSteps extends CommonFunctions {
         if(listoftickets.size() > 1){
             rowElement = listoftickets.get(1);
             for(int i = 1;i < listoftickets.size();i++){
-                String coachee = rowElement.findElement(By.xpath("//tr[@role='row']["+i+"]//td[2]")).getText();
-                String site  = rowElement.findElement(By.xpath("//tr[@role='row']["+i+"]//td[3]")).getText();
-                String campaign = rowElement.findElement(By.xpath("//tr[@role='row']["+i+"]//td[4]")).getText();
-                String regDate = rowElement.findElement(By.xpath("//tr[@role='row']["+i+"]//td[5]")).getText();
-                String status = rowElement.findElement(By.xpath("//tr[@role='row']["+i+"]//td[6]")).getText();
-                String coach = rowElement.findElement(By.xpath("//tr[@role='row']["+i+"]//td[7]")).getText();
+                String coachee = rowElement.findElement(By.xpath("//tr[@role='row']["+i+"]//td[3]")).getText();
+                String site  = rowElement.findElement(By.xpath("//tr[@role='row']["+i+"]//td[4]")).getText();
+                String campaign = rowElement.findElement(By.xpath("//tr[@role='row']["+i+"]//td[5]")).getText();
+                String regDate = rowElement.findElement(By.xpath("//tr[@role='row']["+i+"]//td[6]")).getText();
+                String status = rowElement.findElement(By.xpath("//tr[@role='row']["+i+"]//td[7]")).getText();
+                String coach = rowElement.findElement(By.xpath("//tr[@role='row']["+i+"]//td[8]")).getText();
 
                 if(recentRequestSession.getCoacheeName().equalsIgnoreCase(coachee.replace(",",""))
                     && recentRequestSession.getSite().equalsIgnoreCase(site)
@@ -232,6 +232,7 @@ public class WellnessSteps extends CommonFunctions {
         String aspect_checkbox = boostModalPage.getTextFromFormModalElement("Emergent - Safety Concerns");
         String actionItems = boostModalPage.getTextFromFormModalElement("Action items");
         String actionItemsDueDate = boostModalPage.getTextFromFormModalElement("Action items due date (1 per item)");
+
         if(recentIndividualSession.getSite().equalsIgnoreCase(site)
           && recentIndividualSession.getCampaign().equalsIgnoreCase(campaign)
           && recentIndividualSession.getSessionNumber().equalsIgnoreCase(sessionNumber)
@@ -309,6 +310,60 @@ public class WellnessSteps extends CommonFunctions {
         return 0;
     }
 
+    public void validateWellnessSessions(int sessionNumber) {
+        List<WebElement> listoftickets =  wellnessPage.getWellnessSessionTicketRow();
+        WebElement rowElement;
+        int numberOfRecords = 0;
+        int expecteNumberOfRecords = 1;
+        RecentRequestSession recentRequestSession = CSVReader.readCSVDataForSessionRequest();
+
+        Assert.assertTrue("No request found",listoftickets.size() >= 1);
+
+        rowElement = listoftickets.get(0);
+        for(int i = 1;i <= listoftickets.size();i++) {
+            String yogi = rowElement.findElement(By.xpath("//tr[@style='cursor: pointer;'][" + i + "]//td[2]")).getText();
+            String campaign = rowElement.findElement(By.xpath("//tr[@style='cursor: pointer;'][" + i + "]//td[3]")).getText();
+            String date = rowElement.findElement(By.xpath("//tr[@style='cursor: pointer;'][" + i + "]//td[4]")).getText();
+            List<WebElement> takeSurveyBtnText = rowElement.findElements(By.xpath("//tr[@style='cursor: pointer;'][" + i + "]//td[6]//div[1]//button[1]"));
+            String recRequestSessionDate = changeDateFormat(recentRequestSession.getRegistrationDate());
+
+            if (!recentRequestSession.getCoach().equalsIgnoreCase(yogi.replace(",", ""))){
+                return;
+            }
+            if (!recentRequestSession.getCampaign().equalsIgnoreCase(campaign))
+            {
+                return;
+            }
+            if(!recRequestSessionDate.equalsIgnoreCase(date)){
+                return;
+            }
+            if(i == 1 && (sessionNumber  == 2 || (sessionNumber % 3 != 0 && sessionNumber > 3))){
+                 Assert.assertTrue("Survey button should be invisible" , takeSurveyBtnText.size() == 0);
+            }else{
+                 Assert.assertTrue("Survey button not found" , takeSurveyBtnText.size() >= 1);
+            }
+
+            numberOfRecords++;
+        }
+
+        Assert.assertTrue("Records not found", numberOfRecords >= 1);
+        if(sessionNumber > 1) {
+            expecteNumberOfRecords = computeExpecteNumberOfRecords(sessionNumber,expecteNumberOfRecords);
+        }
+
+        Assert.assertTrue("Doesn't meet expected number of records",numberOfRecords == expecteNumberOfRecords);
+    }
+
+    public int computeExpecteNumberOfRecords(int sessionNumber,int i){
+        if(sessionNumber - 3 > 0) {
+            i++;
+            sessionNumber -= 3;
+            return computeExpecteNumberOfRecords(sessionNumber, i);
+        }
+        i++;
+        return i;
+    }
+
     public String changeDateFormat(String oldDateFormat) {
         String OLD_FORMAT = oldDateFormat;
         String NEW_date_FORMAT = "";
@@ -330,6 +385,10 @@ public class WellnessSteps extends CommonFunctions {
 
     public void switchToBoostPage() {
         boostPage.switchToThisPage();
+    }
+
+    public void switchBackToWellness() {
+        wellnessPage.switchToThisPage();
     }
 
     public void userClicksOnCheckIn() {

@@ -20,10 +20,18 @@ public class BoostSatisfactionSurveyFormsSteps {
 
     public void clickSatisfactionOnSurveyQuestion(String Satisfactory,int QuestionNum) {
         boostSatisfactionSurveyFormPage.clickSatisfactionOnSurveyQuestion(Satisfactory,QuestionNum);
+
     }
 
     public void clickSubmitBtn() {
         boostSatisfactionSurveyFormPage.userClicksOnSubmitBtn();
     }
 
+    public void userFillsTextArea() {
+        boostSatisfactionSurveyFormPage.userFillsTextArea();
+    }
+
+    public void clickStatisfactionOnSurveyQuestion() {
+        boostSatisfactionSurveyFormPage.clickStatisfactionOnSurveyQuestion();
+    }
 }

@@ -40,4 +40,16 @@ public class CheckInFormSteps extends CommonFunctions {
     public void switchToThisPage(){
         checkInFormPage.switchToThisPage();
     }
+
+    public void clickNoRadioBtn() {
+        checkInFormPage.clickNoRadionBtn();
+    }
+
+    public void clickHighlySatisfiedRadioBtn() {
+        checkInFormPage.clickHighlySatisfiedRadioBtn();
+    }
+
+    public void userFillsTextArea() {
+        checkInFormPage.userFillsTextArea();
+    }
 }

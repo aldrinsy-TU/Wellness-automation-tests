@@ -63,4 +63,14 @@ public class WellnessAndResiliencyFormsSteps {
     public void validateSessionRequest(){
         Assert.assertTrue(wellnessRegistrationFormPage.validateSessionRequest());
     }
+
+    public void userSelectPreferredSessionDate() {
+        wellnessRegistrationFormPage.clickPreferredSessionDateDTPicker();
+        wellnessRegistrationFormPage.selectDateToday();
+    }
+
+    public void uuserSelectPreferredSessionTime() {
+        wellnessRegistrationFormPage.clickTimePicker();
+        wellnessRegistrationFormPage.clickTimePickerOk();
+    }
 }

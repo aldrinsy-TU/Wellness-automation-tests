@@ -47,4 +47,9 @@ public class IndividualSessionFormsSteps {
     public void clickSubmitBtn() {
         wellnessIndividualSessionFormPage.userClicksOnSubmitBtn();
     }
+
+    public void selectActionItemsDueDate() {
+        wellnessIndividualSessionFormPage.clickActionItemsDueDateDTPicker();
+        wellnessIndividualSessionFormPage.selectActionItemDueDateToday();
+    }
 }

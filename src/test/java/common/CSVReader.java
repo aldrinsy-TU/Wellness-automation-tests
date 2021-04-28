@@ -157,6 +157,9 @@ public class CSVReader {
         }
 
         try{
+            String DateTodayStr;
+            SimpleDateFormat dtFormat2 = new SimpleDateFormat("M/dd/yyyy");
+            DateTodayStr = dtFormat2.format(new Date());
             newlist[0] = "Individual Session Form";
             newlist[1] = "1st";
             newlist[2] = "Sy Aldrin";
@@ -167,7 +170,7 @@ public class CSVReader {
             newlist[7] = "Emergent - Safety Concerns";
             newlist[8] = "Concerned about the ability to remain safe";
             newlist[9] = "test";
-            newlist[10] = "1/28/2021";
+            newlist[10] = DateTodayStr;
 
             List<String[]> listStringArr = new ArrayList<>();
             listStringArr.add(newlist);

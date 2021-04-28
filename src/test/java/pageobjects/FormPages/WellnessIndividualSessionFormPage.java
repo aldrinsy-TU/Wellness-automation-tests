@@ -11,7 +11,9 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import pageobjects.BoostModalPage;
 
 import java.lang.reflect.InvocationTargetException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
@@ -88,5 +90,20 @@ public class WellnessIndividualSessionFormPage extends FormPageCommonMethods {
         WebElement element = getDriver().findElement(By.xpath("//label[contains(text(),'"+s+"')]"));
         moveClickBtn(element);
         waitForAngularRequestsToFinish();
+    }
+
+    public void selectActionItemDueDateToday() {
+        String DateStr;
+        SimpleDateFormat dtFormat = new SimpleDateFormat("MMMMM d, yyyy");
+        DateStr = dtFormat.format(new Date());
+        moveClickBtn(find(By.xpath("//td[@aria-label='"+DateStr+"']")));
+    }
+
+    public void clickActionItemsDueDateDTPicker() {
+        List<WebElement> elements = getDriver().findElements(By.xpath("//mat-datepicker-toggle"));
+        if(elements.size() >= 1){
+            moveClickBtn(elements.get(0));
+        }
+//        withTimeoutOf(2, TimeUnit.MINUTES).waitFor(ExpectedConditions.invisibilityOf(find(By.xpath("//div[@id='cdk-overlay-10']"))));
     }
 }

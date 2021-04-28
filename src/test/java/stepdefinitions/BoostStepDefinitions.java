@@ -45,11 +45,14 @@ public class BoostStepDefinitions {
     public void userInsertSampleDataToWellnessAndResilencyForm() {
             wellnessAndResiliencyFormsSteps.waitPageToLoad();
             wellnessAndResiliencyFormsSteps.userInsertShiftSchedule("Test");
+            wellnessAndResiliencyFormsSteps.userSelectPreferredSessionDate();
+            wellnessAndResiliencyFormsSteps.uuserSelectPreferredSessionTime();
             wellnessAndResiliencyFormsSteps.userClicksOnTaskUsAnnouncementCheckBox();
             wellnessAndResiliencyFormsSteps.userClicksOnDesireRate5RadioBtn();
             wellnessAndResiliencyFormsSteps.userClicksOnSelfCheckBox();
             wellnessAndResiliencyFormsSteps.userInserttextAreaLifeAspect("Test");
             wellnessAndResiliencyFormsSteps.userClicksOnReadCoachAgreementBtn();
+
             if(boostModalPage.iswellnessAndResiliencyFormsModalDisplayed()){
                 boostModalPage.clickAgreeBtn();
                 wellnessAndResiliencyFormsSteps.userClicksOnSubmitBtn();

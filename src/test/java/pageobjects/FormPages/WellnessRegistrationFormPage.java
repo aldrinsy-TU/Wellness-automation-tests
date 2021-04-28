@@ -10,12 +10,14 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import pageobjects.BoostModalPage;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import javax.swing.text.DateFormatter;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 public class WellnessRegistrationFormPage extends FormPageCommonMethods {
@@ -35,7 +37,7 @@ public class WellnessRegistrationFormPage extends FormPageCommonMethods {
     private WebElementFacade selfCheckBox;
 
     //Please elaborate why you chose that "life aspect" or add a life aspect you wish to focus on that's not indicated in the list *
-    @FindBy(xpath = "//textarea[@id='mat-input-1']")
+    @FindBy(xpath = "//textarea[@id='mat-input-3']")
     private WebElementFacade textAreaLifeAspect;
 
     @FindBy(xpath = "//button[@class='mat-button mat-raised-button mat-button-base']")
@@ -63,8 +65,7 @@ public class WellnessRegistrationFormPage extends FormPageCommonMethods {
 
     public void userClicksOnTaskUsAnnouncementCheckBox(){
 //        clickBtnWithWait("//input[@id='checkbox_option_40'][@name='checkbox_29']");
-//        find(By.xpath("//input[@id='checkbox_option_40']")).click();
-
+//        find(By.xpath("//input[@id='checkbox_option_40']")).click()
         clickBtnWithWait(find(By.xpath("//input[@id='checkbox_option_40']")));
 
     }
@@ -92,5 +93,30 @@ public class WellnessRegistrationFormPage extends FormPageCommonMethods {
 
     public boolean validateSessionRequest(){
         return find(By.xpath("//mat-card-title[contains(text(),'Response submitted')]")).isVisible();
+    }
+
+    public void clickPreferredSessionDateDTPicker() {
+        clickBtnWithWait(find(By.xpath("//mat-datepicker-toggle")));
+    }
+
+    public void selectDateToday() {
+        String DateStr;
+        SimpleDateFormat dtFormat = new SimpleDateFormat("MMMMM d, yyyy");
+        DateStr = dtFormat.format(new Date());
+
+        clickBtnWithWait(find(By.xpath("//td[@aria-label='"+DateStr+"']")));
+    }
+
+    public void clickTimePicker() {
+        clickBtnWithWait(find(By.xpath("//ngx-material-timepicker-toggle")));
+    }
+
+    public void clickTimePickerOk() {
+        List<WebElement> element = getDriver().findElements(By.xpath("//ngx-material-timepicker-button"));
+        if(element.size() >= 2) {
+            JavascriptExecutor exec = (JavascriptExecutor) this.getDriver();
+            exec.executeScript("arguments[0].click();", element.get(1));
+        }
+        withTimeoutOf(2, TimeUnit.MINUTES).waitFor(ExpectedConditions.invisibilityOf(find(By.xpath("//ngx-material-timepicker-content "))));
     }
 }

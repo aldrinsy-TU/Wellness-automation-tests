@@ -110,6 +110,6 @@ public class BoostModalPage extends CommonFunctions {
     }
 
     public String getTextFromFormModalElement(String Label) {
-        return getDriver().findElement(org.openqa.selenium.By.xpath("//label[contains(text(),'"+Label+"')]//following::p[1]")).getText();
+        return getDriver().findElement(org.openqa.selenium.By.xpath("//label[contains(text(),'"+Label+"')]//following::mat-chip[1]")).getText();
     }
 }

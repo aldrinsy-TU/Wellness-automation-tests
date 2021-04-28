@@ -36,4 +36,20 @@ public class BoostSatisfactionSurveyFormPage extends FormPageCommonMethods {
         waitForAngularRequestsToFinish();
     }
 
+    public void userFillsTextArea() {
+        List<WebElement> elements = getDriver().findElements(By.xpath("//textarea"));
+        for(WebElement WE : elements){
+            WE.sendKeys("Test");
+        }
+
+    }
+
+    public void clickStatisfactionOnSurveyQuestion() {
+        List<WebElement> ElementList = getDriver().findElements(By.xpath("//label[contains(text(),'Strongly ')]"));
+        for(WebElement element : ElementList){
+            if((ElementList.indexOf(element)+1) % 2 == 0){
+                moveClickBtn(element);
+            }
+        }
+    }
 }

@@ -153,17 +153,25 @@ public class WellnessStepDefinitions {
 
     @And("User insert sample data to Individual Session form")
     public void userInsertSampleDataToIndividualSessionForm() {
+        createIndividualSessionForm("1st");
+//        individualSessionFormsSteps.validateFormRequest();
+        CSVReader.saveCSVDataForIndividualSessionForm(true);
+    }
+
+    private void createIndividualSessionForm(String sessionNumber) {
+        String DateStr;
+        SimpleDateFormat dtFormat = new SimpleDateFormat("d/MM/yyyy");
+        DateStr = dtFormat.format(new Date());
         individualSessionFormsSteps.waitPageToLoad();
         individualSessionFormsSteps.clickSessionNumberComboBox();
-        individualSessionFormsSteps.selectItemInSessionNumberComboBox("1st");
+        individualSessionFormsSteps.selectItemInSessionNumberComboBox(sessionNumber);
         individualSessionFormsSteps.clickAspectComboBox();
         individualSessionFormsSteps.selectItemAspectComboBox("Emergent - Safety Concerns");
         individualSessionFormsSteps.clickEmergentConcernsCheckBox("Concerned about the ability to remain safe");
         individualSessionFormsSteps.insertTextToActionItems("test");
-        individualSessionFormsSteps.insertTextToActionItemsDueDate("1/28/2021");
+        individualSessionFormsSteps.insertTextToActionItemsDueDate(DateStr);
+        individualSessionFormsSteps.selectActionItemsDueDate();
         individualSessionFormsSteps.clickSubmitBtn();
-//        individualSessionFormsSteps.validateFormRequest();
-        CSVReader.saveCSVDataForIndividualSessionForm(true);
     }
 
     @And("Select date in Past Form using recent request date")
@@ -186,9 +194,11 @@ public class WellnessStepDefinitions {
         wellnessSteps.clickTakeTheSurvey(requestIndex);
         boostSatisfactionSurveyFormsSteps.waitPageToLoad();
         if(boostSatisfactionSurveyFormsSteps.checkIfFormIsDisplayed()){
-            for(int i = 1;i<=7;i++){
-                boostSatisfactionSurveyFormsSteps.clickSatisfactionOnSurveyQuestion("5",i);
-            }
+//            for(int i = 1;i<=8;i++){
+//                boostSatisfactionSurveyFormsSteps.clickSatisfactionOnSurveyQuestion("5",i);
+//            }
+            boostSatisfactionSurveyFormsSteps.clickStatisfactionOnSurveyQuestion();
+            boostSatisfactionSurveyFormsSteps.userFillsTextArea();
             boostSatisfactionSurveyFormsSteps.clickSubmitBtn();
         }
     }
@@ -198,10 +208,13 @@ public class WellnessStepDefinitions {
     public void userClicksOnCheckIn() {
         wellnessSteps.userClicksOnCheckIn();
         checkInFormSteps.waitForCheckInFormPageToLoad();
-        checkInFormSteps.insertAnswerToQ1("1");
-        checkInFormSteps.insertAnswerToQ2("1");
-        checkInFormSteps.selectNoToAll();
-        checkInFormSteps.clickAnswerToQ5("Neutral");
+//        checkInFormSteps.insertAnswerToQ1("1");
+//        checkInFormSteps.insertAnswerToQ2("1");
+//        checkInFormSteps.selectNoToAll();
+//        checkInFormSteps.clickAnswerToQ5("Neutral");
+        checkInFormSteps.clickNoRadioBtn();
+        checkInFormSteps.clickHighlySatisfiedRadioBtn();
+        checkInFormSteps.userFillsTextArea();
         checkInFormSteps.clickSubmitBtn();
     }
 
@@ -410,6 +423,46 @@ public class WellnessStepDefinitions {
     public void validateSiteReportForIsValid(String Site) {
         wellnessSteps.validateSiteReportIsValid(Site,"monthly");
         wellnessSteps.validateSiteReportIsValid(Site,"weekly");
+    }
+
+    @And("Create {int} individual session log")
+    public void createSessionLog(int numberOfSessions) {
+        int i = 1;
+        while(numberOfSessions >= i){
+            createSessionLogOnRequest();
+            createIndividualSessionForm(convertNumberToNumberWithSuffix(Integer.toString(i)));
+            userClicksRequestsLink();
+            userRefreshThePage();
+            wellnessSteps.switchToBoostPage();
+            userRefreshThePage();
+            wellnessSteps.validateWellnessSessions(i);
+            wellnessSteps.switchBackToWellness();
+            i++;
+        }
+
+    }
+
+    private String convertNumberToNumberWithSuffix(String number){
+        if(number.length() > 1){
+            number = Character.toString(number.charAt(number.length() - 1));
+        }
+
+        String numberWithSuffix ="";
+        switch (number){
+            case "1":
+                numberWithSuffix = number + "st";
+                break;
+            case "2":
+                numberWithSuffix = number + "nd";
+                break;
+            case "3":
+                numberWithSuffix = number + "rd";
+                break;
+            default:
+                numberWithSuffix = number + "th";
+        }
+
+        return numberWithSuffix;
     }
 
 //    @Given("test update CSV")

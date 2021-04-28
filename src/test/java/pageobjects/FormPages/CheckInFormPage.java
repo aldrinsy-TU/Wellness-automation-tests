@@ -49,4 +49,25 @@ public class CheckInFormPage extends FormPageCommonMethods {
         WebElementFacade element = find(By.xpath("//button[contains(text(),'Check-In')]"));
         return element.isDisabled();
     }
+
+    public void clickNoRadionBtn() {
+        List<WebElement> ListElement = getDriver().findElements(By.xpath("//label[contains(text(),'No')]"));
+        for(WebElement element : ListElement){
+            moveClickBtn(element);
+        }
+    }
+
+    public void clickHighlySatisfiedRadioBtn() {
+        List<WebElement> ListElement = getDriver().findElements(By.xpath("//label[contains(text(),'Highly Satisfied')]"));
+        for(WebElement element : ListElement){
+            moveClickBtn(element);
+        }
+    }
+
+    public void userFillsTextArea() {
+        List<WebElement> elements = getDriver().findElements(By.xpath("//textarea"));
+        for(WebElement WE : elements){
+            WE.sendKeys("Test");
+        }
+    }
 }

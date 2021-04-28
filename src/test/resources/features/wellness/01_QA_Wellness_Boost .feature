@@ -1,6 +1,27 @@
 @Regression @function=01_QA_Wellness
 Feature: Verify if user is able to submit a session Request
 
+  @01_QA_Welness_04
+  Scenario: Verify if the lists of Sessions will reflect correctly on the grid view and Registration Form fields should be correct
+    Given Clear wellness database
+    Given User access the Boost Home page
+    When A wellness employee user logs in
+    And User create Session Request
+    Then User access the Wellness Home page
+    When A wellness "Master Avatar" user logs in
+    Then User clicks on Requests link
+    And User select "New" status for request filter
+    Then Validate newly added record
+    And Assign "Master Avatar" coach to a request
+    And Validate that status is changed to "Assigned"
+    And Update request status to "Ongoing"
+    And Create 6 individual session log
+    Then User access the Boost Home page
+    When A wellness employee user logs in
+    Then User clicks on Wellness
+    And User clicks on check-in and insert sample data on check-in Form
+    And Validate check-in button is disabled
+
   @01_QA_Welness_01
   Scenario: To Verify if user is able to submit a session Request
     Given Clear wellness database
@@ -23,6 +44,7 @@ Feature: Verify if user is able to submit a session Request
     And Assign "Master Avatar" coach to a request
     And Validate that status is changed to "Assigned"
     And Update request status to "Ongoing"
+    And User select "Ongoing" status for request filter
     And Create session log on request
     And User insert sample data to Individual Session form
       Then User refresh the page

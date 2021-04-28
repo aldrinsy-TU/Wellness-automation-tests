@@ -11,6 +11,7 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -66,8 +67,11 @@ public class WellnessPage extends CommonFunctions {
     }
 
     public void clickOnRequestFilterStatus(){
-        moveClickBtn(requestsFilterStatus);
+//        moveClickBtn(find(By.xpath("//mat-select[@id='mat-select-1']")));
+        WebElement element = find(By.xpath("//mat-select[@id='mat-select-1']"));
 
+        JavascriptExecutor exec = (JavascriptExecutor) this.getDriver();
+        exec.executeScript("arguments[0].click();", element);
         waitForAngularRequestsToFinish();
     }
 
@@ -124,7 +128,7 @@ public class WellnessPage extends CommonFunctions {
     }
 
     public void clickActionDropDown(int requestIndex){
-        WebElement element = getDriver().findElement(By.xpath("//tr[@role='row']["+requestIndex+"]//td[8]//span[1]"));
+        WebElement element = getDriver().findElement(By.xpath("//tr[@role='row']["+requestIndex+"]//td[9]//span[1]"));
         moveClickBtn(element);
     }
 
@@ -259,5 +263,11 @@ public class WellnessPage extends CommonFunctions {
         WebElement Element = find(By.xpath("//span[contains(text(),'"+coachName+"')]"));
         moveClickBtn(Element);
         waitForAngularRequestsToFinish();
+    }
+
+    public void switchToThisPage() {
+        Set<String> handles = getDriver().getWindowHandles();
+        List<String> list = new ArrayList<String>(handles);
+        getDriver().switchTo().window(list.get(list.size() - 1));
     }
 }
