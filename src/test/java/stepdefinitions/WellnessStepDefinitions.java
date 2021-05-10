@@ -465,6 +465,32 @@ public class WellnessStepDefinitions {
         return numberWithSuffix;
     }
 
+    @And("Logout account in Wellness")
+    public void logoutAccountInWellness() {
+        wellnessSteps.logoutAccountInWellness();
+    }
+
+    @Then("Validate that coachee EID column is now available")
+    public void validateThatCoacheeEIDColumnIsNowAvailable() {
+        wellnessSteps.fetchRequestRows();
+        wellnessSteps.validateThatCoacheeEIDColumnIsNowAvailable();
+    }
+
+    @Then("Click coachee EID column header")
+    public void clickCoacheeEIDColumnHeader() {
+        wellnessSteps.clickCoacheeEIDColumnHeader();
+    }
+
+    @Then("Click status column header")
+    public void clickStatusColumnHeader() {
+        wellnessSteps.clickStatusColumnHeader();
+    }
+
+    @Then("Validate first row is changed")
+    public void validateFirstRowIsChanged() {
+        wellnessSteps.validateFirstRowIsChanged();
+    }
+
 //    @Given("test update CSV")
 //    public void test(){
 //        wellnessSteps.updateCSVRequest("Assigned","Master Avatar");

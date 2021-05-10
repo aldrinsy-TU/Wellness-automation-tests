@@ -12,6 +12,7 @@ import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import javax.swing.*;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -270,5 +271,47 @@ public class WellnessPage extends CommonFunctions {
         Set<String> handles = getDriver().getWindowHandles();
         List<String> list = new ArrayList<String>(handles);
         getDriver().switchTo().window(list.get(list.size() - 1));
+    }
+
+    public void userclickAccountDropDown() {
+        WebElement element = find(By.xpath("//mat-icon[contains(text(),'more_vert')]"));
+        moveClickBtn(element);
+        waitForAngularRequestsToFinish();
+    }
+
+    public void userclickslogoutBtn() {
+        WebElement element = find(By.xpath("//span[contains(text(),'Sign out')]"));
+        moveClickBtn(element);
+        waitForAngularRequestsToFinish();
+    }
+
+    public void userclicksYes() {
+        WebElement element = find(By.xpath("//span[contains(text(),'Yes')]"));
+        moveClickBtn(element);
+        waitForAngularRequestsToFinish();
+    }
+
+    public boolean isCoacheeEIDVisible() {
+        List<WebElement> elements = getDriver().findElements(By.xpath("//button[contains(text(),'Coachee EID')]"));
+        if(elements.size() > 0){
+            return true;
+        }
+        return false;
+    }
+
+    public void clickCoacheeEIDColumnHeader() {
+        WebElement element = find(By.xpath("//button[contains(text(),'Coachee EID')]"));
+        moveClickBtn(element);
+        waitForAngularRequestsToFinish();
+    }
+
+    public void clickStatusColumnHeader() {
+        WebElement element = find(By.xpath("//button[contains(text(),'Status')]"));
+        moveClickBtn(element);
+        waitForAngularRequestsToFinish();
+    }
+
+    public String fetchRequestRows() {
+        return  find(By.xpath("//tr[@role='row'][1]//td[7]")).getText();
     }
 }

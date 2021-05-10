@@ -127,3 +127,33 @@ Feature: Verify if Master Avatar can assign to himself
     Then User clicks on Requests link
     And User select "Assigned" status for request filter
     Then Validate that there's no assigned session
+
+  @03_QA_welness_19
+  Scenario: Verify if the Director or Sr Director Account is able re-assign a session
+    Given User access the Boost Home page
+    When A wellness employee user logs in
+    And User create Session Request
+    Given User access the Wellness Home page
+    Then A wellness "Master Avatar" user logs in
+    Then User clicks on Requests link
+    And User select "New" status for request filter
+    Then Validate newly added record
+    And Assign "Master Avatar" coach to a request
+    And Logout account in Wellness
+    Then User access the Wellness Home page
+    Then A wellness "Director" user logs in
+    Then User clicks on Requests link
+    And User select "Assigned" status for request filter
+    And Validate that status is changed to "Assigned"
+    And Reassign "Yogi" coach to a request
+    And Validate that status is changed to "Reassigned"
+
+  @03_QA_welness_19
+  Scenario: Verify if there's already a Coachee EID Column and Sort Functionality on the Requests Grid
+    Given User access the Wellness Home page
+    Then A wellness "Master Avatar" user logs in
+    Then User clicks on Requests link
+    Then Validate that coachee EID column is now available
+    Then Click coachee EID column header
+    Then Click status column header
+    Then Validate first row is changed

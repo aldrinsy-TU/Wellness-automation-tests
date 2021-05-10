@@ -114,6 +114,6 @@ public class LoginPage extends PageObject{
             if(wellnessEmployeeLoginBtn.isDisplayed())
                 wellnessEmployeeLoginBtn.click();
         }
-        
+
     }
 }

@@ -15,7 +15,6 @@ import testdataobjects.RecentIndividualSession;
 import testdataobjects.RecentRequestSession;
 import testdataobjects.wellnessLoginKeys;
 
-import javax.swing.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -31,6 +30,8 @@ public class WellnessSteps extends CommonFunctions {
     LoginSteps loginSteps;
 
     BoostPage boostPage;
+
+    String firstRowStatusValue;
 
     @Step("Click requests link session")
     public void userClickOnRequestsLink(){
@@ -524,5 +525,31 @@ public class WellnessSteps extends CommonFunctions {
         else
             Assert.assertTrue("No request found",false);
 
+    }
+
+    public void logoutAccountInWellness() {
+        wellnessPage.userclickAccountDropDown();
+        wellnessPage.userclickslogoutBtn();
+        wellnessPage.userclicksYes();
+    }
+
+    public void validateThatCoacheeEIDColumnIsNowAvailable() {
+        Assert.assertTrue("Validate Coachee EID column header",wellnessPage.isCoacheeEIDVisible());
+    }
+
+    public void clickCoacheeEIDColumnHeader() {
+        wellnessPage.clickCoacheeEIDColumnHeader();
+    }
+
+    public void clickStatusColumnHeader() {
+        wellnessPage.clickStatusColumnHeader();
+    }
+
+    public void fetchRequestRows() {
+        firstRowStatusValue = wellnessPage.fetchRequestRows();
+    }
+
+    public void validateFirstRowIsChanged() {
+        Assert.assertNotEquals("Validate if first row status column is changed.",firstRowStatusValue,wellnessPage.fetchRequestRows());
     }
 }
