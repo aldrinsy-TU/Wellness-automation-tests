@@ -90,3 +90,23 @@ Feature: New/Past Forms
     Then User clicks on Past Forms Link
     And Select date in Past Form using session request date
     And Validate Individual Session Form Session
+
+  @04_QA_Welness_28
+  Scenario: Verify the content of the Leadership Departmental Training Log Form
+    Given User access the Wellness Home page
+    When A wellness "Master Avatar" user logs in
+    Then User clicks on Go to Leadership and Departmental Training Log
+    And User insert sample data to Leadership and Departmental Training Log
+    Then User clicks on Past Forms Link
+    And Select date in Past Form using session request date
+    And Validate Leadership and Departmental Training Log Form Session
+
+  @04_QA_Welness_29
+  Scenario: Verify the content of the Debrief/Stand-Up Skill Form
+    Given User access the Wellness Home page
+    When A wellness "Master Avatar" user logs in
+    Then User clicks on  Go to Debrief and Stand-Up Skill
+    And User insert sample data to Debrief and Stand-Up Skill
+    Then User clicks on Past Forms Link
+    And Select date in Past Form using session request date
+    And Validate Debrief and Stand-Up Skill Log Form Session

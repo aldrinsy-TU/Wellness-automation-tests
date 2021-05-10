@@ -552,4 +552,12 @@ public class WellnessSteps extends CommonFunctions {
     public void validateFirstRowIsChanged() {
         Assert.assertNotEquals("Validate if first row status column is changed.",firstRowStatusValue,wellnessPage.fetchRequestRows());
     }
+
+    public void userClicksOnGoToLeadershipDepartmentalTrainingLog() {
+        wellnessPage.userClicksOnGoToLeadershipDepartmentalTrainingLog();
+    }
+
+    public void userClicksOnGoToDebriefStandUpSkill() {
+        wellnessPage.userClicksOnGoToDebriefStandUpSkill();
+    }
 }

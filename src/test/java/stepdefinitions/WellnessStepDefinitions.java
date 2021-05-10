@@ -42,6 +42,12 @@ public class WellnessStepDefinitions {
     @Steps
     YogiIndividualSessionFormsSteps yogiIndividualSessionFormsSteps;
 
+    @Steps
+    LeadershipAndDepartmentalTrainingLogFormsSteps leadershipAndDepartmentalTrainingLogFormsSteps;
+
+    @Steps
+    DebriefAndStandUpSkillFormsSteps debriefAndStandUpSkillFormsSteps;
+
     int requestIndex;
     String loginUserRole;
 
@@ -489,6 +495,54 @@ public class WellnessStepDefinitions {
     @Then("Validate first row is changed")
     public void validateFirstRowIsChanged() {
         wellnessSteps.validateFirstRowIsChanged();
+    }
+
+    @Then("User clicks on Go to Leadership and Departmental Training Log")
+    public void userClicksOnGoToLeadershipDepartmentalTrainingLog() {
+        wellnessSteps.userClicksOnGoToLeadershipDepartmentalTrainingLog();
+    }
+
+    @And("User insert sample data to Leadership and Departmental Training Log")
+    public void userInsertSampleDataToLeadershipAndDepartmentalTrainingLog() {
+        leadershipAndDepartmentalTrainingLogFormsSteps.waitPageToLoad();
+        leadershipAndDepartmentalTrainingLogFormsSteps.userSelectPreferredSessionDate();
+        leadershipAndDepartmentalTrainingLogFormsSteps.userSelectGeography("India");
+        leadershipAndDepartmentalTrainingLogFormsSteps.userSelectSite("Bhopal");
+        leadershipAndDepartmentalTrainingLogFormsSteps.userSelectPresentation("447");
+        leadershipAndDepartmentalTrainingLogFormsSteps.userSelectDuration("453");
+        leadershipAndDepartmentalTrainingLogFormsSteps.insertTextInSubjectTextfield("test");
+        leadershipAndDepartmentalTrainingLogFormsSteps.userClicksOnSubmitBtn();
+        leadershipAndDepartmentalTrainingLogFormsSteps.verifyReponseIsSubmitted();
+    }
+
+    @And("Validate Leadership and Departmental Training Log Form Session")
+    public void validateLeadershipAndDepartmentalTrainingLogFormSession() throws ParseException {
+        requestIndex = leadershipAndDepartmentalTrainingLogFormsSteps.validateIndividualSessionFormSession();
+        wellnessSteps.clickActionViewFromResponse(requestIndex);
+        leadershipAndDepartmentalTrainingLogFormsSteps.verifyFormSessionModal();
+    }
+
+    @Then("User clicks on  Go to Debrief and Stand-Up Skill")
+    public void userClicksOnGoToDebriefStandUpSkill() {
+        wellnessSteps.userClicksOnGoToDebriefStandUpSkill();
+    }
+
+    @And("User insert sample data to Debrief and Stand-Up Skill")
+    public void userInsertSampleDataToDebriefAndStandUpSkill() {
+        debriefAndStandUpSkillFormsSteps.waitPageToLoad();
+        debriefAndStandUpSkillFormsSteps.userSelectGeography("India");
+        debriefAndStandUpSkillFormsSteps.userSelectSite("Bhopal");
+        debriefAndStandUpSkillFormsSteps.userSelectDuration();
+        debriefAndStandUpSkillFormsSteps.WastheGroupSuccessfulOrChallenging("442");
+        debriefAndStandUpSkillFormsSteps.userClicksOnSubmitBtn();
+        debriefAndStandUpSkillFormsSteps.verifyReponseIsSubmitted();
+    }
+
+    @And("Validate Debrief and Stand-Up Skill Log Form Session")
+    public void validateDebriefAndStandUpSkillLogFormSession(){
+        requestIndex = debriefAndStandUpSkillFormsSteps.validateIndividualSessionFormSession();
+        wellnessSteps.clickActionViewFromResponse(requestIndex);
+        debriefAndStandUpSkillFormsSteps.verifyFormSessionModal();
     }
 
 //    @Given("test update CSV")

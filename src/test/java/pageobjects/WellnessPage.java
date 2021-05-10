@@ -314,4 +314,14 @@ public class WellnessPage extends CommonFunctions {
     public String fetchRequestRows() {
         return  find(By.xpath("//tr[@role='row'][1]//td[7]")).getText();
     }
+
+    public void userClicksOnGoToLeadershipDepartmentalTrainingLog() {
+        WebElement element = find(By.xpath("//span[contains(text(),'Go to Leadership/Departmental Training Log')]"));
+        moveClickBtn(element);
+        waitForAngularRequestsToFinish();
+    }
+
+    public void userClicksOnGoToDebriefStandUpSkill() {
+        moveClickBtn(find(By.xpath("//span[contains(text(),'Go to Debrief/Stand-Up Skill')]")));
+    }
 }
