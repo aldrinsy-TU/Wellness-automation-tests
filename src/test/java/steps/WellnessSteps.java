@@ -560,4 +560,29 @@ public class WellnessSteps extends CommonFunctions {
     public void userClicksOnGoToDebriefStandUpSkill() {
         wellnessPage.userClicksOnGoToDebriefStandUpSkill();
     }
+
+    public void selectWeeklySiteReportDateAndSite() throws ParseException {
+        wellnessPage.clickDateBtnInSiteReport("weekly");
+        wellnessPage.selectDate();
+    }
+
+    public void selectMonthlySiteReportDateAndSite() throws ParseException {
+        wellnessPage.clickDateBtnInSiteReport("monthly");
+        wellnessPage.selectDate();
+    }
+
+    public void selectGlobalSiteReportDateAndSite() throws ParseException {
+        wellnessPage.ClickFromDateGlobalReportSite();
+        wellnessPage.SelectFromDateGlobalReportSite();
+        wellnessPage.ClickToDateGlobalReportSite();
+        wellnessPage.selectDate();
+    }
+
+    public void clickReportDropDown() {
+        wellnessPage.clickReportDropDown();
+    }
+
+    public void selectReport(String report) {
+        wellnessPage.selectReport(report);
+    }
 }

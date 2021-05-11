@@ -545,6 +545,27 @@ public class WellnessStepDefinitions {
         debriefAndStandUpSkillFormsSteps.verifyFormSessionModal();
     }
 
+    @Then("Select Weekly Site Report Date and Site")
+    public void selectWeeklySiteReportDateAndSite() throws ParseException {
+        wellnessSteps.selectWeeklySiteReportDateAndSite();
+    }
+
+    @Then("Select Monthly Site Report Date and Site")
+    public void selectMonthlySiteReportDateAndSite() throws ParseException {
+        wellnessSteps.selectMonthlySiteReportDateAndSite();
+    }
+
+    @Then("Select Global Site Report Date From and To")
+    public void selectGlobalSiteReportDateAndSite() throws ParseException {
+        wellnessSteps.selectGlobalSiteReportDateAndSite();
+    }
+
+    @Then("Select {string} Report From Global Reports")
+    public void selectReportFromGlobalReports(String Report) {
+        wellnessSteps.clickReportDropDown();
+        wellnessSteps.selectReport(Report);
+    }
+
 //    @Given("test update CSV")
 //    public void test(){
 //        wellnessSteps.updateCSVRequest("Assigned","Master Avatar");

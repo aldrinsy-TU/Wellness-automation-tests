@@ -1,5 +1,6 @@
 package pageobjects;
 
+import common.CSVReader;
 import common.CommonFunctions;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.PageObject;
@@ -10,12 +11,13 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import testdataobjects.RecentRequestSession;
 
 import javax.swing.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.Duration;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 public class WellnessPage extends CommonFunctions {
@@ -323,5 +325,46 @@ public class WellnessPage extends CommonFunctions {
 
     public void userClicksOnGoToDebriefStandUpSkill() {
         moveClickBtn(find(By.xpath("//span[contains(text(),'Go to Debrief/Stand-Up Skill')]")));
+    }
+
+    public void clickDateBtnInSiteReport(String duration) {
+        moveClickBtn(find(By.xpath("//app-site-"+duration+"//button[@aria-label='Open calendar']")));
+    }
+
+    public void selectDate() throws ParseException {
+        RecentRequestSession recentRequestSession = CSVReader.readCSVDataForSessionRequest();
+        SimpleDateFormat dtFormat = new SimpleDateFormat("MMMMM d, yyyy");
+        dtFormat.setTimeZone(TimeZone.getTimeZone("GMT+5:30"));
+        String DateStr = dtFormat.format(new SimpleDateFormat("dd-MM-yy").parse(recentRequestSession.getRegistrationDate()));
+        moveClickBtn(find(By.xpath("//td[@aria-label='"+DateStr+"']")));
+    }
+
+    public void ClickFromDateGlobalReportSite() {
+        moveClickBtn(find(By.xpath("//mat-form-field[2]//button")));
+    }
+
+    public void SelectFromDateGlobalReportSite() throws ParseException {
+        RecentRequestSession recentRequestSession = CSVReader.readCSVDataForSessionRequest();
+        Calendar cal = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yy", Locale.ENGLISH);
+        cal.setTime(sdf.parse(recentRequestSession.getRegistrationDate()));
+        cal.add(Calendar.DATE, -1);
+        SimpleDateFormat dtFormat = new SimpleDateFormat("MMMMM d, yyyy", Locale.ENGLISH);
+        dtFormat.setTimeZone(TimeZone.getTimeZone("GMT+5:30"));
+        String DateStr = dtFormat.format(cal.getTime());
+        moveClickBtn(find(By.xpath("//td[@aria-label='"+DateStr+"']")));
+    }
+
+    public void ClickToDateGlobalReportSite() {
+        moveClickBtn(find(By.xpath("//mat-form-field[3]//button")));
+    }
+
+    public void clickReportDropDown() {
+        waitForAngularRequestsToFinish();
+        moveClickBtn(find(By.xpath("//mat-form-field[1]//mat-select")));
+    }
+
+    public void selectReport(String report) {
+        moveClickBtn(find(By.xpath("//span[text() = '"+report+"']")));
     }
 }
