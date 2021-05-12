@@ -1,6 +1,7 @@
 package steps.FormPageSteps;
 
 
+import common.ReadCSVUtil;
 import net.serenitybdd.core.Serenity;
 import net.thucydides.core.annotations.Step;
 import org.junit.Assert;
@@ -95,15 +96,17 @@ public class DebriefAndStandUpSkillFormsSteps {
     }
 
     public void verifyFormSessionModal(){
+        List<String> column = ReadCSVUtil.getExpectedResult("Validate Leadership and Departmental Training Log Form Session");
+
         String geography = boostModalPage.getTextFromFormModalElement("Geography");
         String site = boostModalPage.getTextFromFormModalElement("Site");
         String duration = boostModalPage.getTextFromFormModalElement("Duration");
         String subject = boostModalPage.getTextFromFormModalElement("Was the group successful or challenging?");
 
-        if("Bhopal".equalsIgnoreCase(site)
-                && "India".equalsIgnoreCase(geography)
-                && "15 min.".equalsIgnoreCase(duration)
-                && "Successful/learning outcomes met".equalsIgnoreCase(subject)){
+        if(column.get(0).equalsIgnoreCase(site)
+                && column.get(1).equalsIgnoreCase(geography)
+                && column.get(2).equalsIgnoreCase(duration)
+                && column.get(3).equalsIgnoreCase(subject)){
             Assert.assertTrue("Form Validated",true);
         }
         else{

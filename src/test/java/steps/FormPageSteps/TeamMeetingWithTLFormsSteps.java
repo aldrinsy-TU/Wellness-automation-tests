@@ -1,6 +1,7 @@
 package steps.FormPageSteps;
 
 
+import common.ReadCSVUtil;
 import net.serenitybdd.core.Serenity;
 import net.thucydides.core.annotations.Step;
 import org.junit.Assert;
@@ -82,16 +83,18 @@ public class TeamMeetingWithTLFormsSteps {
     }
 
     public void verifyTeamMeetingWithTLFormSessionFormModal() {
+        List<String> column = ReadCSVUtil.getExpectedResult("Validate Team Meeting with TL Form Session");
+
         String site = boostModalPage.getTextFromFormModalElement("Site");
         String campaign = boostModalPage.getTextFromFormModalElement("Campaign");
         String numberOfAttendessPresent = boostModalPage.getTextFromFormModalElement("Number of attendees present");
         String nameOfTL = boostModalPage.getTextFromFormModalElement("Name of TL");
         String textArea = boostModalPage.getTextFromFormModalElement("Please provide a description of identified concerns or opportunities for growth of the team by TL");
-        if("Adventures Intelligence".equalsIgnoreCase(site)
-                && "Sephora-Customer Support-Blended-TUT".equalsIgnoreCase(campaign)
-                && "1".equalsIgnoreCase(numberOfAttendessPresent)
-                && "test".equalsIgnoreCase(nameOfTL)
-                && "test".equalsIgnoreCase(textArea)){
+        if(column.get(0).equalsIgnoreCase(site)
+                && column.get(1).equalsIgnoreCase(campaign)
+                && column.get(2).equalsIgnoreCase(numberOfAttendessPresent)
+                && column.get(3).equalsIgnoreCase(nameOfTL)
+                && column.get(4).equalsIgnoreCase(textArea)){
             Assert.assertTrue("Team Meeting with TL Form Validated",true);
         }
         else{

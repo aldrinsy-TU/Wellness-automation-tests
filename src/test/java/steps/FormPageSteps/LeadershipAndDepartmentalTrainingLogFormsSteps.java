@@ -1,6 +1,7 @@
 package steps.FormPageSteps;
 
 
+import common.ReadCSVUtil;
 import net.serenitybdd.core.Serenity;
 import net.thucydides.core.annotations.Step;
 import org.junit.Assert;
@@ -104,6 +105,8 @@ public class LeadershipAndDepartmentalTrainingLogFormsSteps {
     }
 
     public void verifyFormSessionModal() throws ParseException {
+        List<String> column = ReadCSVUtil.getExpectedResult("Validate Leadership and Departmental Training Log Form Session");
+
         String Date = Serenity.sessionVariableCalled("GroupFormDateCreated");
         String date = boostModalPage.getTextFromFormModalElement("Date");
         String geography = boostModalPage.getTextFromFormModalElement("Geography");
@@ -115,12 +118,12 @@ public class LeadershipAndDepartmentalTrainingLogFormsSteps {
         SimpleDateFormat dtFormat = new SimpleDateFormat("M/d/yyyy");
         Date = dtFormat.format(date1);
 
-        if("Bhopal".equalsIgnoreCase(site)
+        if(column.get(0).equalsIgnoreCase(site)
                 && Date.equalsIgnoreCase(date)
-                && "India".equalsIgnoreCase(geography)
-                && "Client Presentation (QBRs, MBRs, WBRs)".equalsIgnoreCase(presentation)
-                && "15 min.".equalsIgnoreCase(duration)
-                && "test".equalsIgnoreCase(subject)){
+                && column.get(1).equalsIgnoreCase(geography)
+                && column.get(2).equalsIgnoreCase(presentation)
+                && column.get(3).equalsIgnoreCase(duration)
+                && column.get(4).equalsIgnoreCase(subject)){
             Assert.assertTrue("Form Validated",true);
         }
         else{

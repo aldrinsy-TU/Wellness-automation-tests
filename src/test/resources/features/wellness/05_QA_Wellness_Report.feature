@@ -16,6 +16,7 @@ Feature: Wellness monthly and weekly Reporting
     Then User clicks on Reporting Link
     Then User clicks "Status" Report Link
     And Validate status report
+# create bagong validation
 
   @05_QA_Welness_31
   Scenario: Verify if Master Avatar is able to Filter Site Monthly/Weekly Report
@@ -34,6 +35,7 @@ Feature: Wellness monthly and weekly Reporting
     Then User clicks on Reporting Link
     Then User clicks "Global Reports" Report Link
     Then Select Global Site Report Date From and To
+    #lagay ng validation
     Then Select "Check in" Report From Global Reports
     Then Select "Coaches and Wellness and Resiliency Manager Sessions" Report From Global Reports
     Then Select "Group Form Sessions" Report From Global Reports

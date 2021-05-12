@@ -565,9 +565,4 @@ public class WellnessStepDefinitions {
         wellnessSteps.clickReportDropDown();
         wellnessSteps.selectReport(Report);
     }
-
-//    @Given("test update CSV")
-//    public void test(){
-//        wellnessSteps.updateCSVRequest("Assigned","Master Avatar");
-//    }
 }

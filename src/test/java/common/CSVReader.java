@@ -216,4 +216,35 @@ public class CSVReader {
         return recentIndividualSession;
 
     }
+
+    public static HashMap<String, ExpectedResults> getExpectedResults(){
+
+        String csvFile = "src/test/resources/data/expectedResult.csv";
+        String line = "";
+        String cvsSplitBy = ",";
+        HashMap<String, ExpectedResults> expectedResults = new HashMap<>();
+
+        try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
+
+            while ((line = br.readLine()) != null) {
+                String[] record = line.split(cvsSplitBy);
+                List<String> column = new ArrayList<>();
+                String Key ="";
+                for(String crd : record){
+                    if(record[0].equals(crd)){
+                        Key = crd;
+                        continue;
+                    }
+                    column.add(crd);
+                }
+                ExpectedResults Results = new ExpectedResults(column);
+                expectedResults.put(Key,Results);
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return expectedResults;
+    }
 }

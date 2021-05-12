@@ -62,7 +62,7 @@ Feature: New/Past Forms
     And Validate Individual Session Form Session
 
   @04_QA_Welness_25
-  Scenario: Verify if Master Avatarn user is able to create a Group Form
+  Scenario: Verify if Master Avatar user is able to create a Group Form
     Given User access the Wellness Home page
     When A wellness "Master Avatar" user logs in
     Then User clicks on Group Form link

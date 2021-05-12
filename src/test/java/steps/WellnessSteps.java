@@ -3,6 +3,7 @@ package steps;
 
 import common.CSVReader;
 import common.CommonFunctions;
+import common.ReadCSVUtil;
 import net.serenitybdd.core.Serenity;
 import net.thucydides.core.annotations.Step;
 import org.junit.Assert;
@@ -11,10 +12,12 @@ import org.openqa.selenium.WebElement;
 import pageobjects.BoostModalPage;
 import pageobjects.BoostPage;
 import pageobjects.WellnessPage;
+import testdataobjects.ExpectedResults;
 import testdataobjects.RecentIndividualSession;
 import testdataobjects.RecentRequestSession;
 import testdataobjects.wellnessLoginKeys;
 
+import javax.swing.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -249,6 +252,8 @@ public class WellnessSteps extends CommonFunctions {
     }
 
     public void verifyRegistrationFormModal() {
+        List<String> column = ReadCSVUtil.getExpectedResult("Validate request Registration");
+
         String site = boostModalPage.getTextFromFormModalElement("Site");
         String campaign = boostModalPage.getTextFromFormModalElement("Campaign");
         String shiftNSchedule = boostModalPage.getTextFromFormModalElement("Shift/schedule and RD");
@@ -257,14 +262,14 @@ public class WellnessSteps extends CommonFunctions {
         String aspect = boostModalPage.getTextFromFormModalElement("Which aspect of your life would you like to focus on?");
         String lifeAspect = boostModalPage.getTextFromFormModalElement("Please elaborate why you chose that");
         String coachingAgreement = boostModalPage.getTextFromFormModalElement("Read the Coaching Agreement");
-        if("Chateau Ridiculous".equalsIgnoreCase(site)
-                && "LBTI-Corporate Applications".equalsIgnoreCase(campaign)
-                && "Test".equalsIgnoreCase(shiftNSchedule)
-                && "TaskUs annoucements".equalsIgnoreCase(lifeCoaching)
-                && "5".equalsIgnoreCase(outcomeNResult)
-                && "Self".equalsIgnoreCase(aspect)
-                && "Test".equalsIgnoreCase(lifeAspect)
-                && "true".equalsIgnoreCase(coachingAgreement)){
+        if(column.get(0).equalsIgnoreCase(site)
+                && column.get(1).equalsIgnoreCase(campaign)
+                && column.get(2).equalsIgnoreCase(shiftNSchedule)
+                && column.get(3).equalsIgnoreCase(lifeCoaching)
+                && column.get(4).equalsIgnoreCase(outcomeNResult)
+                && column.get(5).equalsIgnoreCase(aspect)
+                && column.get(6).equalsIgnoreCase(lifeAspect)
+                && column.get(7).equalsIgnoreCase(coachingAgreement)){
             Assert.assertTrue("Registration Form Validated",true);
         }
         else{
@@ -437,6 +442,8 @@ public class WellnessSteps extends CommonFunctions {
     }
 
     public void validateCoachReportIsValid(String Coach,String reportType) {
+        List<String> column = ReadCSVUtil.getExpectedResult("Verify if Master Avatar is able to Filter Coach Monthly Report");
+
         List<WebElement> listoftickets =  wellnessPage.getDriver().findElements(By.xpath("//app-coach-"+reportType+"//tr[@role='row']"));
         WebElement rowElement;
         if(listoftickets.size() >= 1){
@@ -446,8 +453,8 @@ public class WellnessSteps extends CommonFunctions {
                 String coacheeCount = rowElement.findElement(By.xpath("//app-coach-"+reportType+"//tr[@role='row']["+i+"]//td[4]")).getText();
                 String surveyCount = rowElement.findElement(By.xpath("//app-coach-"+reportType+"//tr[@role='row']["+i+"]//td[5]")).getText();
                 if(Coach.equalsIgnoreCase(coachName)
-                        && "2".equalsIgnoreCase(coacheeCount)
-                        && "1".equalsIgnoreCase(surveyCount))
+                        && column.get(0).equalsIgnoreCase(coacheeCount)
+                        && column.get(1).equalsIgnoreCase(surveyCount))
                 {
                     Assert.assertTrue("Record found ", true);
                     return;
@@ -461,6 +468,8 @@ public class WellnessSteps extends CommonFunctions {
     }
 
     public void validateSiteReportIsValid(String site,String reportType) {
+        List<String> column = ReadCSVUtil.getExpectedResult("Verify if Master Avatar is able to Filter Site Monthly/Weekly Report");
+
         List<WebElement> listoftickets =  wellnessPage.getDriver().findElements(By.xpath("//app-site-"+reportType+"//tr[@role='row']"));
         WebElement rowElement;
         if(listoftickets.size() >= 1){
@@ -471,9 +480,9 @@ public class WellnessSteps extends CommonFunctions {
                 String coacheeCount = rowElement.findElement(By.xpath("//app-site-"+reportType+"//tr[@role='row']["+i+"]//td[3]")).getText();
                 String surveyCount = rowElement.findElement(By.xpath("//app-site-"+reportType+"//tr[@role='row']["+i+"]//td[4]")).getText();
                 if(site.equalsIgnoreCase(siteName)
-                        && "3".equalsIgnoreCase(coacheeCount)
-                        && "1".equalsIgnoreCase(surveyCount)
-                        && "3".equalsIgnoreCase(coachCount))
+                        && column.get(0).equalsIgnoreCase(coacheeCount)
+                        && column.get(1).equalsIgnoreCase(surveyCount)
+                        && column.get(2).equalsIgnoreCase(coachCount))
                 {
                     Assert.assertTrue("Record found ", true);
                     return;
@@ -585,4 +594,5 @@ public class WellnessSteps extends CommonFunctions {
     public void selectReport(String report) {
         wellnessPage.selectReport(report);
     }
+
 }

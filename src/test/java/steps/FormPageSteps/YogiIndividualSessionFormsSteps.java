@@ -1,6 +1,7 @@
 package steps.FormPageSteps;
 
 
+import common.ReadCSVUtil;
 import net.serenitybdd.core.Serenity;
 import net.thucydides.core.annotations.Step;
 import org.junit.Assert;
@@ -78,16 +79,18 @@ public class YogiIndividualSessionFormsSteps {
     }
 
     public void verifyIndividualSessionFormSessionFormModal() {
+        List<String> column = ReadCSVUtil.getExpectedResult("Validate Individual Session Form Session");
+
         String site = boostModalPage.getTextFromFormModalElement("Site");
         String campaign = boostModalPage.getTextFromFormModalElement("Campaign");
         String sessionNumber = boostModalPage.getTextFromFormModalElement("Session number");
         String aspect = boostModalPage.getTextFromFormModalElement("Aspect");
         String personal = boostModalPage.getTextFromFormModalElement("Personal");
-        if("Adventures Intelligence".equalsIgnoreCase(site)
-                && "Sephora-Customer Support-Blended-TUT".equalsIgnoreCase(campaign)
-                && "1st".equalsIgnoreCase(sessionNumber)
-                && "Personal".equalsIgnoreCase(aspect)
-                && "Relationship(s) problems".equalsIgnoreCase(personal)){
+        if(column.get(0).equalsIgnoreCase(site)
+                && column.get(1).equalsIgnoreCase(campaign)
+                && column.get(2).equalsIgnoreCase(sessionNumber)
+                && column.get(3).equalsIgnoreCase(aspect)
+                && column.get(4).equalsIgnoreCase(personal)){
             Assert.assertTrue("Individual Session Form Validated",true);
         }
         else{
