@@ -507,8 +507,7 @@ public class WellnessSteps extends CommonFunctions {
         List<WebElement> listoftickets =  wellnessPage.getTicketRow();
         WebElement rowElement;
         RecentRequestSession recentRequestSession = CSVReader.readCSVDataForSessionRequest();
-        Assert.assertTrue("Total of 3 request",(listoftickets.size() - 1) == 3);
-        if(listoftickets.size() > 1){
+        if(listoftickets.size() >= 1){
             rowElement = listoftickets.get(1);
             for(int i = 1;i < listoftickets.size();i++){
                 String coachee = rowElement.findElement(By.xpath("//tr[@role='row']["+i+"]//td[2]")).getText().trim();

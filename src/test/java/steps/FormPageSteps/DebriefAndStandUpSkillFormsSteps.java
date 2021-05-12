@@ -11,6 +11,7 @@ import pageobjects.BoostModalPage;
 import pageobjects.FormPages.DebriefAndStandUpSkillFormPage;
 import pageobjects.FormPages.LeadershipAndDepartmentalTrainingLogFormPage;
 
+import javax.swing.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -96,7 +97,7 @@ public class DebriefAndStandUpSkillFormsSteps {
     }
 
     public void verifyFormSessionModal(){
-        List<String> column = ReadCSVUtil.getExpectedResult("Validate Leadership and Departmental Training Log Form Session");
+        List<String> column = ReadCSVUtil.getExpectedResult("Validate Debrief and Stand-Up Skill Log Form Session");
 
         String geography = boostModalPage.getTextFromFormModalElement("Geography");
         String site = boostModalPage.getTextFromFormModalElement("Site");

@@ -16,7 +16,6 @@ Feature: Wellness monthly and weekly Reporting
     Then User clicks on Reporting Link
     Then User clicks "Status" Report Link
     And Validate status report
-# create bagong validation
 
   @05_QA_Welness_31
   Scenario: Verify if Master Avatar is able to Filter Site Monthly/Weekly Report

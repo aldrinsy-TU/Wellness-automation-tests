@@ -5,7 +5,9 @@ Feature: Verify if user is able to submit a session Request
   Scenario: Verify if the lists of Sessions will reflect correctly on the grid view and Registration Form fields should be correct
     Given Clear wellness database
     Given User access the Boost Home page
+    Then User refresh the page
     When A wellness employee user logs in
+
     And User create Session Request
     Then User access the Wellness Home page
     When A wellness "Master Avatar" user logs in

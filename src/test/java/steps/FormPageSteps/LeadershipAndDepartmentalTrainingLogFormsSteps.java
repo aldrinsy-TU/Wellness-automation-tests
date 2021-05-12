@@ -121,7 +121,7 @@ public class LeadershipAndDepartmentalTrainingLogFormsSteps {
         if(column.get(0).equalsIgnoreCase(site)
                 && Date.equalsIgnoreCase(date)
                 && column.get(1).equalsIgnoreCase(geography)
-                && column.get(2).equalsIgnoreCase(presentation)
+                && column.get(2).equalsIgnoreCase(presentation.replace(",",""))
                 && column.get(3).equalsIgnoreCase(duration)
                 && column.get(4).equalsIgnoreCase(subject)){
             Assert.assertTrue("Form Validated",true);
