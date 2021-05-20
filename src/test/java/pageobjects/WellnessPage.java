@@ -174,7 +174,8 @@ public class WellnessPage extends CommonFunctions {
 
     public void clickCreateSessionLog() {
         WebElement element = getDriver().findElement(By.xpath("//span[contains(text(),'Create session log')]"));
-        moveClickBtn(element);
+        JavascriptExecutor exec = (JavascriptExecutor) this.getDriver();
+        exec.executeScript("arguments[0].click();", element);
         waitForAngularRequestsToFinish();
     }
 
