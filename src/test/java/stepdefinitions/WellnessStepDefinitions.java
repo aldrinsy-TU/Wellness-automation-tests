@@ -565,4 +565,34 @@ public class WellnessStepDefinitions {
         wellnessSteps.clickReportDropDown();
         wellnessSteps.selectReport(Report);
     }
+
+    @Then("Validate Check in V2 Reports")
+    public void validateCheckInVReports() {
+        wellnessSteps.validateGlobalReports("Validate Check in V2 Reports");
+    }
+
+    @Then("Validate Coaches and Wellness and Resiliency Manager Sessions Reports")
+    public void validateCoachesAndWellnessAndResiliencyManagerSessionsReports() {
+        wellnessSteps.validateGlobalReports("Validate Coaches and Wellness and Resiliency Manager Sessions Reports");
+    }
+
+    @Then("Validate Group Form Sessions Reports")
+    public void validateGroupFormSessionsReports() {
+        wellnessSteps.validateGlobalReports("Validate Group Form Sessions Reports");
+    }
+
+    @Then("Validate Mental Health Professional Sessions Reports")
+    public void validateMentalHealthProfessionalSessionsReports() {
+        wellnessSteps.validateGlobalReports("Validate Mental Health Professional Sessions Reports");
+    }
+
+    @Then("Validate Survey Reports")
+    public void validateSurveyReports() {
+        wellnessSteps.validateGlobalReports("Validate Survey Reports");
+    }
+
+    @Then("Validate Team Meeting with TL Sessions Reports")
+    public void validateTeamMeetingWithTLSessionsReports() {
+        wellnessSteps.validateGlobalReports("Validate Team Meeting with TL Sessions Reports");
+    }
 }

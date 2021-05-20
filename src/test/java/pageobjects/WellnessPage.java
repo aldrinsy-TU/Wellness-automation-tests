@@ -2,6 +2,7 @@ package pageobjects;
 
 import common.CSVReader;
 import common.CommonFunctions;
+import net.serenitybdd.core.Serenity;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.PageObject;
 import net.serenitybdd.core.pages.WebElementFacade;
@@ -334,9 +335,9 @@ public class WellnessPage extends CommonFunctions {
     public void selectDate() throws ParseException {
         RecentRequestSession recentRequestSession = CSVReader.readCSVDataForSessionRequest();
         SimpleDateFormat dtFormat = new SimpleDateFormat("MMMMM d, yyyy");
-        dtFormat.setTimeZone(TimeZone.getTimeZone("GMT+5:30"));
         String DateStr = dtFormat.format(new SimpleDateFormat("dd-MM-yy").parse(recentRequestSession.getRegistrationDate()));
         moveClickBtn(find(By.xpath("//td[@aria-label='"+DateStr+"']")));
+        Serenity.setSessionVariable("ReportDate").to(recentRequestSession.getRegistrationDate());
     }
 
     public void ClickFromDateGlobalReportSite() {
@@ -350,7 +351,6 @@ public class WellnessPage extends CommonFunctions {
         cal.setTime(sdf.parse(recentRequestSession.getRegistrationDate()));
         cal.add(Calendar.DATE, -1);
         SimpleDateFormat dtFormat = new SimpleDateFormat("MMMMM d, yyyy", Locale.ENGLISH);
-        dtFormat.setTimeZone(TimeZone.getTimeZone("GMT+5:30"));
         String DateStr = dtFormat.format(cal.getTime());
         moveClickBtn(find(By.xpath("//td[@aria-label='"+DateStr+"']")));
     }
@@ -366,5 +366,6 @@ public class WellnessPage extends CommonFunctions {
 
     public void selectReport(String report) {
         moveClickBtn(find(By.xpath("//span[text() = '"+report+"']")));
+        waitForAngularRequestsToFinish();
     }
 }

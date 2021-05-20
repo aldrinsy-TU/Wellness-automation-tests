@@ -594,4 +594,41 @@ public class WellnessSteps extends CommonFunctions {
         wellnessPage.selectReport(report);
     }
 
+    public void validateGlobalReports(String reportName) {
+        List<String> column = ReadCSVUtil.getExpectedResult(reportName);
+        String reportDate = Serenity.sessionVariableCalled("ReportDate");
+        if(column.get(0).equals("Multi Column")){
+            for(String colName : column){
+                if(colName.equals("Multi Column")){
+                    continue;
+                }
+                validateGlobalReports(colName);
+            }
+            return;
+        }
+        List<WebElement> listofreports = getDriver().findElements(By.xpath("//tr[contains(@class,'cursor')]"));
+        if(listofreports.size() >= 1){
+            for(int i = 1;i <= listofreports.size();i++) {
+                String coach = getDriver().findElement(By.xpath("//tr[@role='row'][" + i + "]//td[2]")).getText().trim();
+                String coachee = getDriver().findElement(By.xpath("//tr[@role='row'][" + i + "]//td[3]")).getText().trim();
+                String site = getDriver().findElement(By.xpath("//tr[@role='row'][" + i + "]//td[4]")).getText().trim();
+                String campaign = getDriver().findElement(By.xpath("//tr[@role='row'][" + i + "]//td[5]")).getText().trim();
+                String date = getDriver().findElement(By.xpath("//tr[@role='row'][" + i + "]//td[6]")).getText().trim();
+
+                if(column.get(0).equalsIgnoreCase(coach.replace(",",""))
+                        && column.get(1).equalsIgnoreCase(coachee.replace(",",""))
+                        && column.get(2).equalsIgnoreCase(site)
+                        && column.get(3).equalsIgnoreCase(campaign)
+                        && reportDate.equalsIgnoreCase(date)
+                )
+                {
+                    Assert.assertTrue("Record found ", true);
+                    return;
+                }
+            }
+            Assert.assertTrue("No reports found",false);
+        }else{
+            Assert.assertTrue("No reports found",false);
+        }
+    }
 }

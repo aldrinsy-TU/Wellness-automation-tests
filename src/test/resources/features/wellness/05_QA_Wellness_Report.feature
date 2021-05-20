@@ -34,8 +34,15 @@ Feature: Wellness monthly and weekly Reporting
     Then User clicks on Reporting Link
     Then User clicks "Global Reports" Report Link
     Then Select Global Site Report Date From and To
-    #lagay ng validation
-    Then Select "Check in" Report From Global Reports
+    Then Select "Check in V2" Report From Global Reports
+    Then Validate Check in V2 Reports
     Then Select "Coaches and Wellness and Resiliency Manager Sessions" Report From Global Reports
+    Then Validate Coaches and Wellness and Resiliency Manager Sessions Reports
     Then Select "Group Form Sessions" Report From Global Reports
+    Then Validate Group Form Sessions Reports
     Then Select "Mental Health Professional Sessions" Report From Global Reports
+    Then Validate Mental Health Professional Sessions Reports
+    Then Select "Survey" Report From Global Reports
+    Then Validate Survey Reports
+    Then Select "Team Meeting with TL Sessions" Report From Global Reports
+    Then Validate Team Meeting with TL Sessions Reports
