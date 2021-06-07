@@ -51,14 +51,14 @@ public class CheckInFormPage extends FormPageCommonMethods {
     }
 
     public void clickNoRadionBtn() {
-        List<WebElement> ListElement = getDriver().findElements(By.xpath("//label[contains(text(),'No')]"));
+        List<WebElement> ListElement = getDriver().findElements(By.xpath("//span[contains(text(),'No')]"));
         for(WebElement element : ListElement){
             moveClickBtn(element);
         }
     }
 
     public void clickHighlySatisfiedRadioBtn() {
-        List<WebElement> ListElement = getDriver().findElements(By.xpath("//label[contains(text(),'Highly Satisfied')]"));
+        List<WebElement> ListElement = getDriver().findElements(By.xpath("//span[contains(text(),'Highly Satisfied')]"));
         for(WebElement element : ListElement){
             moveClickBtn(element);
         }

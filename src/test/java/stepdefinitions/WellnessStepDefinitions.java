@@ -216,10 +216,6 @@ public class WellnessStepDefinitions {
     public void userClicksOnCheckIn() {
         wellnessSteps.userClicksOnCheckIn();
         checkInFormSteps.waitForCheckInFormPageToLoad();
-//        checkInFormSteps.insertAnswerToQ1("1");
-//        checkInFormSteps.insertAnswerToQ2("1");
-//        checkInFormSteps.selectNoToAll();
-//        checkInFormSteps.clickAnswerToQ5("Neutral");
         checkInFormSteps.clickNoRadioBtn();
         checkInFormSteps.clickHighlySatisfiedRadioBtn();
         checkInFormSteps.userFillsTextArea();
