@@ -158,7 +158,7 @@ public class CSVReader {
 
         try{
             String DateTodayStr;
-            SimpleDateFormat dtFormat2 = new SimpleDateFormat("M/dd/yyyy");
+            SimpleDateFormat dtFormat2 = new SimpleDateFormat("M/d/yyyy");
             DateTodayStr = dtFormat2.format(new Date());
             newlist[0] = "Individual Session Form";
             newlist[1] = "1st";
