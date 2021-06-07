@@ -259,13 +259,13 @@ public class WellnessPage extends CommonFunctions {
     }
 
     public void clickCoachNameFilter(){
-        WebElement Element = find(By.xpath("//mat-select[@id='mat-select-1']"));
+        WebElement Element = find(By.xpath("//mat-select[@id='mat-select-2']"));
         moveClickBtn(Element);
         waitForAngularRequestsToFinish();
     }
     public void changeCoachNameFilterTo(String coachName) {
-        WebElement Element = find(By.xpath("//span[contains(text(),'"+coachName+"')]"));
-        moveClickBtn(Element);
+        List<WebElement> Elements = getDriver().findElements(By.xpath("//span[contains(text(),'" + coachName + "')]"));
+        moveClickBtn(Elements.get(0));
         waitForAngularRequestsToFinish();
     }
 
@@ -294,7 +294,7 @@ public class WellnessPage extends CommonFunctions {
     }
 
     public boolean isCoacheeEIDVisible() {
-        List<WebElement> elements = getDriver().findElements(By.xpath("//button[contains(text(),'Coachee EID')]"));
+        List<WebElement> elements = getDriver().findElements(By.xpath("//div[contains(text(),'Coachee EID')]"));
         if(elements.size() > 0){
             return true;
         }
@@ -302,13 +302,13 @@ public class WellnessPage extends CommonFunctions {
     }
 
     public void clickCoacheeEIDColumnHeader() {
-        WebElement element = find(By.xpath("//button[contains(text(),'Coachee EID')]"));
+        WebElement element = find(By.xpath("//div[contains(text(),'Coachee EID')]"));
         moveClickBtn(element);
         waitForAngularRequestsToFinish();
     }
 
     public void clickStatusColumnHeader() {
-        WebElement element = find(By.xpath("//button[contains(text(),'Status')]"));
+        WebElement element = find(By.xpath("//div[contains(text(),'Status')]"));
         moveClickBtn(element);
         waitForAngularRequestsToFinish();
     }

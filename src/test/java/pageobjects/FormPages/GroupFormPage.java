@@ -8,7 +8,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
@@ -16,18 +18,15 @@ import java.util.concurrent.TimeUnit;
 public class GroupFormPage extends FormPageCommonMethods {
 
     //Site comboBox
-    @FindBy(xpath = "//mat-select[@id='siteId']")
+    @FindBy(xpath = "//mat-select[@id='optionsitebycountry_168']")
     private WebElementFacade siteComboBox;
 
-//    @FindBy(xpath = "//span[contains(text(),'Adventures Intelligence')]")
-//    private WebElementFacade getSiteComboBoxAndventuresIntelligence;
-
     //Campaign textBox
-    @FindBy(xpath = "//input[@id='mat-input-1']")
+    @FindBy(xpath = "//mat-select[@id='optioncampaignbysite_169']")
     private WebElementFacade campaignTextBox;
 
     //Number of attendees present
-    @FindBy(xpath = "//input[@id='mat-input-3']")
+    @FindBy(xpath = "//input[@id='mat-input-1']")
     private WebElementFacade attendeesNoTextBox;
 
     //Group category (Operations - Leadership)
@@ -35,11 +34,11 @@ public class GroupFormPage extends FormPageCommonMethods {
     private WebElementFacade GCOperationsLeadershipRadioBtn;
 
     //Topic of group
-    @FindBy(xpath = "//label[contains(text(),'Self-regulation')]")
+    @FindBy(xpath = "//span[contains(text(),'Self-regulation')]")
     private WebElementFacade TOGSelfRegulation;
 
     //Was the group successful or challenging?
-    @FindBy(xpath = "//label[contains(text(),'Successful/Learning outcomes met')]")
+    @FindBy(xpath = "//span[contains(text(),'Successful/Learning outcomes met')]")
     private WebElementFacade evalSuccessfulNLearningOutcomesMet;
 
     public GroupFormPage() {
@@ -66,8 +65,9 @@ public class GroupFormPage extends FormPageCommonMethods {
         waitForAngularRequestsToFinish();
     }
 
-    public void userInputNumberOfAttendees(String numOfAttendess) {
+    public void userInputAttendee(String numOfAttendess) {
         attendeesNoTextBox.sendKeys(numOfAttendess);
+        waitForAngularRequestsToFinish();
     }
 
     public void userClicksGroupCategoryOperationsLeadership() {
@@ -87,7 +87,29 @@ public class GroupFormPage extends FormPageCommonMethods {
 
     public void userSelectAttendee() {
         waitForAngularRequestsToFinish();
-        List<WebElement> Elements = getDriver().findElements(By.xpath("//div[@mat-line]"));
+        List<WebElement> Elements = getDriver().findElements(By.xpath("//div[@mat-line][1]"));
         moveClickBtn(Elements.get(0));
+    }
+
+    public void userClicksOnGeographyComboBox() {
+        moveClickBtn(find(By.xpath("//mat-select[@id='optionemployeecountry_167']")));
+        waitForAngularRequestsToFinish();
+    }
+
+    public void userSelectGeography(String geography) {
+        moveClickBtn(find(By.xpath("//span[contains(text(),'"+geography+"')]")));
+    }
+
+    public void userClicksOnDateTimePicker() {
+        moveClickBtn(find(By.xpath("//mat-datepicker-toggle")));
+        waitForAngularRequestsToFinish();
+    }
+    
+    public void selectDateToday() {
+        String DateStr;
+        SimpleDateFormat dtFormat = new SimpleDateFormat("MMMMM d, yyyy");
+        DateStr = dtFormat.format(new Date());
+
+        moveClickBtn(find(By.xpath("//td[@aria-label='"+DateStr+"']")));
     }
 }

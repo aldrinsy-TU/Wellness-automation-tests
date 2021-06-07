@@ -1,7 +1,6 @@
 package steps.FormPageSteps;
 
 
-import common.CSVReader;
 import common.ReadCSVUtil;
 import net.serenitybdd.core.Serenity;
 import net.thucydides.core.annotations.Step;
@@ -10,11 +9,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import pageobjects.BoostModalPage;
 import pageobjects.FormPages.GroupFormPage;
-import testdataobjects.ExpectedResults;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.TimeZone;
 
@@ -50,8 +47,8 @@ public class GroupFormsSteps {
         groupFormPage.userSelectCampaign(campaign);
     }
 
-    public void userInputNumberOfAttendees(String numOfAttendess) {
-        groupFormPage.userInputNumberOfAttendees(numOfAttendess);
+    public void userInputAttendee(String numOfAttendess) {
+        groupFormPage.userInputAttendee(numOfAttendess);
     }
 
     public void userClicksGroupCategoryOperationsLeadership() {
@@ -110,14 +107,14 @@ public class GroupFormsSteps {
 
         String site = boostModalPage.getTextFromFormModalElement("Site");
         String campaign = boostModalPage.getTextFromFormModalElement("Campaign");
-        String numberOfAttendessPresent = boostModalPage.getTextFromFormModalElement("Number of attendees present");
-        String groupCategory = boostModalPage.getTextFromFormModalElement("Group category");
+        String numberOfAttendessPresent = boostModalPage.getTextFromFormModalElement("Attendees");
+        String geography = boostModalPage.getTextFromFormModalElement("Geography");
         String topicOfGroup = boostModalPage.getTextFromFormModalElement("Topic of group");
         String wasTheGroupSuccessfulOrChallenging = boostModalPage.getTextFromFormModalElement("Was the group successful or challenging?");
         if(column.get(0).equalsIgnoreCase(site)
                 && column.get(1).equalsIgnoreCase(campaign)
                 && column.get(2).equalsIgnoreCase(numberOfAttendessPresent)
-                && column.get(3).equalsIgnoreCase(groupCategory)
+                && column.get(3).equalsIgnoreCase(geography)
                 && column.get(4).equalsIgnoreCase(topicOfGroup)
                 && column.get(5).equalsIgnoreCase(wasTheGroupSuccessfulOrChallenging)){
             Assert.assertTrue("Group Session Form Validated",true);
@@ -129,5 +126,21 @@ public class GroupFormsSteps {
 
     public void userSelectAttendee() {
         groupFormPage.userSelectAttendee();
+    }
+
+    public void userClicksOnGeographyComboBox() {
+        groupFormPage.userClicksOnGeographyComboBox();
+    }
+
+    public void userSelectGeography(String geography) {
+        groupFormPage.userSelectGeography(geography);
+    }
+
+    public void userClicksOnDateTimePicker() {
+        groupFormPage.userClicksOnDateTimePicker();
+    }
+
+    public void selectDateToday() {
+        groupFormPage.selectDateToday();
     }
 }

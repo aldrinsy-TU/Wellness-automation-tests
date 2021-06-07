@@ -52,6 +52,7 @@ public class FormPageCommonMethods extends CommonFunctions {
     }
 
     public boolean verifyReponseIsSubmitted() {
+        waitForAngularRequestsToFinish();
         WebElement element = find(By.xpath("//mat-card-title[contains(text(),'Response submitted')]"));
         return element.isDisplayed();
     }

@@ -249,13 +249,19 @@ public class WellnessStepDefinitions {
     @And("Input data on Group Form")
     public void inputDataOnGroupForm() {
         groupFormsSteps.waitPageToLoad();
+        groupFormsSteps.userClicksOnDateTimePicker();
+        groupFormsSteps.selectDateToday();
+        groupFormsSteps.userClicksOnGeographyComboBox();
+        groupFormsSteps.userSelectGeography("Taiwan");
         groupFormsSteps.userClicksOnSiteBtn();
         groupFormsSteps.userSelectSite("Adventures Intelligence");
         groupFormsSteps.userClicksOnCampaignTextBox();
         groupFormsSteps.userSelectCampaign("Sephora-Customer Support-Blended-TUT");
-        groupFormsSteps.userInputNumberOfAttendees("1");
-        groupFormsSteps.userClicksGroupCategoryOperationsLeadership();
+
+//        groupFormsSteps.userClicksGroupCategoryOperationsLeadership();
         groupFormsSteps.userClicksTopicOfGroupSelfRegulation();
+        groupFormsSteps.userInputAttendee("3058324");
+        groupFormsSteps.userSelectAttendee();
         groupFormsSteps.userClicksOnFirstRadionBtnInSuccessOrChallengingQuestion();
         groupFormsSteps.userClicksOnSubmitBtn();
 
@@ -323,6 +329,8 @@ public class WellnessStepDefinitions {
         yogiIndividualSessionFormsSteps.userClicksOnAspectComboBox();
         yogiIndividualSessionFormsSteps.userSelectPersonalOnAspectComboBox();
         yogiIndividualSessionFormsSteps.userClicksRelationshipProblem();
+        individualSessionFormsSteps.clickEmployeeCurrentStatusComboBox();
+        individualSessionFormsSteps.selectEmployeeStatus();
         yogiIndividualSessionFormsSteps.userClicksOnSubmitBtn();
 
         teamMeetingWithTLFormsSteps.userRefreshThePage();
@@ -389,7 +397,7 @@ public class WellnessStepDefinitions {
 
     @And("Validate status report")
     public void validateStatusReportForCoach() {
-        teamMeetingWithTLFormsSteps.userRefreshThePage();
+//        teamMeetingWithTLFormsSteps.userRefreshThePage();
         RecentRequestSession recentRequestSession = CSVReader.readCSVDataForSessionRequest();
         wellnessSteps.clickCoachNameFilter();
         wellnessSteps.changeCoachNameFilterTo(recentRequestSession.getCoach().replaceFirst(" ",", "));
