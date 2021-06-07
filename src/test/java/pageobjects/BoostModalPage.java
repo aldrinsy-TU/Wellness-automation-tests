@@ -21,10 +21,10 @@ public class BoostModalPage extends CommonFunctions {
     //End : Wellness and Resiliency Forms
 
     //Start : Type of care modal
-    @FindBy(xpath = "//span[contains(text(),'Select type of care')]")
+    @FindBy(xpath = "//h2[contains(text(),'Request Session')]")
     private WebElementFacade careTypeModal;
 
-    @FindBy(xpath = "//button[contains(text(),'Wellness Coaching with a Yogi')]")
+    @FindBy(xpath = "//button[contains(text(),'Wellness Coaching with a Life Coach')]")
     private WebElementFacade coachYogiBtn;
     //End : Type of care modal
 
@@ -66,11 +66,11 @@ public class BoostModalPage extends CommonFunctions {
     }
 
     public void clickAgreeBtn(){
-        if(!find(By.xpath("//button[@class='app-button-color mat-button mat-raised-button mat-button-base']")).isClickable()){
-            WebElement element = find(By.xpath("//button[@class='app-button-color mat-button mat-raised-button mat-button-base']"));
+        if(!find(By.xpath("//span[contains(text(),'I agree')]")).isClickable()){
+            WebElement element = find(By.xpath("//span[contains(text(),'I agree')]"));
             withTimeoutOf(2, TimeUnit.MINUTES).waitFor(ExpectedConditions.elementToBeClickable(element));
         }
-        find(By.xpath("//button[@class='app-button-color mat-button mat-raised-button mat-button-base']")).click();
+        find(By.xpath("//span[contains(text(),'I agree')]")).click();
         waitForAngularRequestsToFinish();
     }
 

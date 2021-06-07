@@ -38,7 +38,7 @@ Feature: Wellness monthly and weekly Reporting
     Then Validate Check in V2 Reports
     Then Select "Coaches and Wellness and Resiliency Manager Sessions" Report From Global Reports
     Then Validate Coaches and Wellness and Resiliency Manager Sessions Reports
-    Then Select "Group Form Sessions" Report From Global Reports
+    Then Select "Group Form Sessions V2" Report From Global Reports
     Then Validate Group Form Sessions Reports
     Then Select "Mental Health Professional Sessions" Report From Global Reports
     Then Validate Mental Health Professional Sessions Reports

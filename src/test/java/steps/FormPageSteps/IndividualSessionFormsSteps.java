@@ -52,4 +52,12 @@ public class IndividualSessionFormsSteps {
         wellnessIndividualSessionFormPage.clickActionItemsDueDateDTPicker();
         wellnessIndividualSessionFormPage.selectActionItemDueDateToday();
     }
+
+    public void clickEmployeeCurrentStatusComboBox() {
+        wellnessIndividualSessionFormPage.clickEmployeeCurrentStatusComboBox();
+    }
+
+    public void selectEmployeeStatus() {
+        wellnessIndividualSessionFormPage.selectEmployeeStatus();
+    }
 }

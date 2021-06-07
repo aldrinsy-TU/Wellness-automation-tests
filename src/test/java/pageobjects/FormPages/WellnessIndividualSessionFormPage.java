@@ -108,4 +108,13 @@ public class WellnessIndividualSessionFormPage extends FormPageCommonMethods {
         }
 //        withTimeoutOf(2, TimeUnit.MINUTES).waitFor(ExpectedConditions.invisibilityOf(find(By.xpath("//div[@id='cdk-overlay-10']"))));
     }
+
+    public void clickEmployeeCurrentStatusComboBox() {
+        List<WebElement> Elements = getDriver().findElements(By.xpath("//mat-select"));
+        moveClickBtn(Elements.get(3));
+    }
+
+    public void selectEmployeeStatus() {
+        moveClickBtn(find(By.xpath("//span[contains(text(),'Current')]")));
+    }
 }

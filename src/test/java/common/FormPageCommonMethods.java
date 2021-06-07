@@ -24,7 +24,7 @@ public class FormPageCommonMethods extends CommonFunctions {
 
     public void FetchElements(){
         formPageHeader = find(By.xpath("//h3[contains(text(),'"+this.formName+"')]"));
-        submitBtn = find(By.xpath("//button[@class='app-button-color mat-raised-button mat-button-base']"));
+        submitBtn = find(By.xpath("//span[contains(text(),'Submit')]"));
     }
 
     public boolean isFormPagePageDisplayed(){
@@ -43,6 +43,7 @@ public class FormPageCommonMethods extends CommonFunctions {
     }
 
     public void switchPageThenWaitToLoad(){
+        getDriver().navigate().refresh();
         FetchElements();
         Set<String> handles = getDriver().getWindowHandles();
         List<String> list = new ArrayList<String>(handles);

@@ -580,9 +580,10 @@ public class WellnessSteps extends CommonFunctions {
     }
 
     public void selectGlobalSiteReportDateAndSite() throws ParseException {
-        wellnessPage.ClickFromDateGlobalReportSite();
+        wellnessPage.selectDateRange();
+//        wellnessPage.ClickFromDateGlobalReportSite();
         wellnessPage.SelectFromDateGlobalReportSite();
-        wellnessPage.ClickToDateGlobalReportSite();
+//        wellnessPage.ClickToDateGlobalReportSite();
         wellnessPage.selectDate();
     }
 

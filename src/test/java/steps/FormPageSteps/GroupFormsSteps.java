@@ -126,4 +126,8 @@ public class GroupFormsSteps {
             Assert.assertTrue("Group Session Form Invalid",false);
         }
     }
+
+    public void userSelectAttendee() {
+        groupFormPage.userSelectAttendee();
+    }
 }

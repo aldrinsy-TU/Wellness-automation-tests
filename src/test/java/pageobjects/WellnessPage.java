@@ -71,11 +71,8 @@ public class WellnessPage extends CommonFunctions {
     }
 
     public void clickOnRequestFilterStatus(){
-//        moveClickBtn(find(By.xpath("//mat-select[@id='mat-select-1']")));
-        WebElement element = find(By.xpath("//mat-select[@id='mat-select-1']"));
-
-        JavascriptExecutor exec = (JavascriptExecutor) this.getDriver();
-        exec.executeScript("arguments[0].click();", element);
+        List<WebElement> Elements = getDriver().findElements(By.xpath("//mat-select"));
+        moveClickBtn(Elements.get(1));
         waitForAngularRequestsToFinish();
     }
 
@@ -124,9 +121,9 @@ public class WellnessPage extends CommonFunctions {
             combo = 11;
         }
 
-        WebElement element = getDriver().findElement(By.xpath("//mat-option[@ng-reflect-value='"+(combo - 5)+"']"));
+//        WebElement element = getDriver().findElement(By.xpath("//mat-option[@ng-reflect-value='"+(combo - 5)+"']"));
         JavascriptExecutor exec = (JavascriptExecutor) this.getDriver();
-        exec.executeScript("arguments[0].click();", element);
+        exec.executeScript("arguments[0].click();", find(By.xpath("//mat-option[@id='mat-option-"+combo+"']")));
 
         waitForAngularRequestsToFinish();
     }
@@ -368,6 +365,11 @@ public class WellnessPage extends CommonFunctions {
 
     public void selectReport(String report) {
         moveClickBtn(find(By.xpath("//span[text() = '"+report+"']")));
+        waitForAngularRequestsToFinish();
+    }
+
+    public void selectDateRange() {
+        moveClickBtn(find(By.xpath("//button[@class='mat-focus-indicator mat-icon-button mat-button-base']")));
         waitForAngularRequestsToFinish();
     }
 }

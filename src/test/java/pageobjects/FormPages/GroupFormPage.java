@@ -84,4 +84,10 @@ public class GroupFormPage extends FormPageCommonMethods {
         moveClickBtn(evalSuccessfulNLearningOutcomesMet);
         waitForAngularRequestsToFinish();
     }
+
+    public void userSelectAttendee() {
+        waitForAngularRequestsToFinish();
+        List<WebElement> Elements = getDriver().findElements(By.xpath("//div[@mat-line]"));
+        moveClickBtn(Elements.get(0));
+    }
 }

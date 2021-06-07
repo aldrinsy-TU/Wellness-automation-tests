@@ -177,6 +177,8 @@ public class WellnessStepDefinitions {
         individualSessionFormsSteps.insertTextToActionItems("test");
 //        individualSessionFormsSteps.insertTextToActionItemsDueDate(DateStr);
         individualSessionFormsSteps.selectActionItemsDueDate();
+        individualSessionFormsSteps.clickEmployeeCurrentStatusComboBox();
+        individualSessionFormsSteps.selectEmployeeStatus();
         individualSessionFormsSteps.clickSubmitBtn();
     }
 

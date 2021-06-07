@@ -103,8 +103,8 @@ public class LoginPage extends PageObject{
     }
 
     public void clicktestLoginBtn(String role){
-        WebElement wellnessEmployeeLoginBtn = getDriver().findElements(By.xpath("//button[@class='app-button-signin mat-raised-button mat-button-base']")).get(0);
-        WebElement wellnessClinicianLoginBtn = getDriver().findElements(By.xpath("//button[@class='app-button-signin mat-raised-button mat-button-base']")).get(1);
+        WebElement wellnessEmployeeLoginBtn = getDriver().findElements(By.xpath("//button[@class='mat-focus-indicator app-button-signin mat-raised-button mat-button-base']")).get(0);
+        WebElement wellnessClinicianLoginBtn = getDriver().findElements(By.xpath("//button[@class='mat-focus-indicator app-button-signin mat-raised-button mat-button-base']")).get(1);
 
         if("Test clinician".equalsIgnoreCase(role)){
             if(wellnessClinicianLoginBtn.isDisplayed())

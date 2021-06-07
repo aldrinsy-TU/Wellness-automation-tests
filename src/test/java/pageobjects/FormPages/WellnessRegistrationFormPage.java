@@ -83,7 +83,7 @@ public class WellnessRegistrationFormPage extends FormPageCommonMethods {
     }
 
     public void userClicksOnReadCoachAgreementBtn(){
-        clickBtnWithWait(find(By.xpath("//button[@class='mat-button mat-raised-button mat-button-base']")));
+        clickBtnWithWait(find(By.xpath("//span[contains(text(),'Read the Coaching Agreement')]")));
     }
 
     public void clickBtnWithWait(WebElement element){

@@ -15,7 +15,7 @@ public class BoostPage extends PageObject{
     @FindBy(xpath = "//a[@href='/wellness']")
     private WebElementFacade wellnessBtn;
 
-    @FindBy(id = "btnRequest")
+    @FindBy(xpath = "//button[contains(text(),'Request Session')]")
     private WebElementFacade requestSession;
 
     public void clickWellnessButton(){
