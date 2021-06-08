@@ -2,7 +2,7 @@
 Feature: Verify if Master Avatar can assign to himself
 
   @03_QA_Welness_07
-  Scenario: Verify if the Master Avatar can see the correct UI
+  Scenario: Verify if Master Avatar can assign to himself
     Given User access the Boost Home page
     When A wellness employee user logs in
     And User create Session Request
@@ -148,7 +148,7 @@ Feature: Verify if Master Avatar can assign to himself
     And Reassign "Yogi" coach to a request
     And Validate that status is changed to "Reassigned"
 
-  @03_QA_welness_19
+  @03_QA_welness_20
   Scenario: Verify if there's already a Coachee EID Column and Sort Functionality on the Requests Grid
     Given User access the Wellness Home page
     Then A wellness "Master Avatar" user logs in
