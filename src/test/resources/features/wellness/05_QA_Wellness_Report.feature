@@ -1,5 +1,5 @@
 @Regression @function=05_QA_Wellness
-Feature: Wellness monthly and weekly Reporting
+Feature: 05_QA_Wellness_Report
 
   @05_QA_Welness_28-29
   Scenario: Verify if Master Avatar is able to Filter Coach Monthly Report

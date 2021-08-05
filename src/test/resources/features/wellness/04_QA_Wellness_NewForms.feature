@@ -1,5 +1,5 @@
 @Regression @function=04_QA_Wellness
-Feature: New/Past Forms
+Feature: 04_QA_Wellness_NewForms
 
   @04_QA_Welness_19
   Scenario: Verify if Yogi user is able to create a Group Form

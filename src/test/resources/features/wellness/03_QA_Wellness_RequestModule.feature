@@ -1,5 +1,5 @@
 @Regression @function=03_QA_Wellness
-Feature: Verify if Master Avatar can assign to himself
+Feature: 03_QA_Wellness_RequestModule
 
   @03_QA_Welness_07
   Scenario: Verify if Master Avatar can assign to himself

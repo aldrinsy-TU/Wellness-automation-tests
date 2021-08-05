@@ -1,5 +1,5 @@
 @Regression @function=02_QA_Wellness
-Feature: Verify if the Master Avatar can see the correct UI
+Feature: 02_QA_Wellness_Login
 
   @02_QA_Welness_04
   Scenario: Verify if the Master Avatar can see the correct UI
